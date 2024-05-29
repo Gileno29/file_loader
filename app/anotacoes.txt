@@ -1,0 +1,4 @@
+#envio de arquivos para o sistema
+curl --form "arquivo1=@Base.txt" "http://localhost:5000/upload"
+
+create user myuser with  password
