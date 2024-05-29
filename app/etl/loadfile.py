@@ -2,15 +2,16 @@ import pandas as pd
 from db import conection
 from unidecode import unidecode
 
+normatize= lambda f: unicode(f.strip().replace(' ', '_').lower())
 def map_fields(fields):
-    coluns=[unidecode(fields[1:4].strip().replace(' ', '_').lower()),
-            unidecode(fields[19:28].strip().replace(' ', '_').lower()),
-            unidecode(fields[29:42].strip().replace(' ', '_').lower()),
-            unidecode(fields[43:65].strip().replace(' ', '_').lower()),
-            unidecode(fields[66:80].strip().replace(' ', '_').lower()),
-            unidecode(fields[81:111].strip().replace(' ', '_').lower()),
-            unidecode(fields[112:131].strip().replace(' ', '_').lower()),
-            unidecode(fields[132:154].strip().replace(' ', '_').lower())]
+    coluns=[(normatize(fields[1:4]), "VARCHAR(255)"),
+            (normatize(fields[19:28]), "VARCHAR(255)"),
+            (normatize(fields[29:42]), "VARCHAR(255)"),
+            (normatize(fields[43:65]), "VARCHAR(255)"),
+            (normatize(fields[66:80]), "VARCHAR(255)"),
+            (normatize(fields[81:111]), "VARCHAR(255)"),
+            (normatize(fields[112:131]), "VARCHAR(255)"),
+            (normatize(fields[132:154]), "VARCHAR(255)")]
 
     return coluns
 
@@ -19,17 +20,27 @@ def map_fields(fields):
 file_path = "../uploads/Base.txt"
 file_lines=''
 coluns=''
-with open(file_path, "r") as arquivo:
-	file_lines = arquivo.readlines()
+
+def create_base(file_path):
+    with open(file_path, "r") as arquivo:
+        head_line = arquivo.readline()
+        coluns=map_fields(head_line)
+        
+        sql= f"""
+            DROP TABLE IF EXISTS vendas;
+            CREATE TABLE vendas(
+                {",".join([f"{colun[0], colun[1]}" for colun in coluns])}
+            );"""
+        try:
+            con=conection.connect()
+            con.execute(sql)
+        except Exception as e:
+            print("Error in table creation: ", e)
+        con.close()
 
 
-for line in file_lines:
-      coluns=map_fields(line)
-      con=conection.connect()
-      for c in coluns:
-            
-      con.execute("create table vendas ("+ )
-      break
+def load():
+    pass
 
 
 '''
