@@ -12,7 +12,7 @@ user = os.getenv('DB_USER')
 password = os.getenv('DB_PASSWORD')
 port = os.getenv('DB_PORT')
 
-def connect_and_query():
+def connect():
     try:
         conn = psycopg2.connect(
             host=host,
@@ -22,7 +22,10 @@ def connect_and_query():
             port=port
         )
 
-        cur = conn.cursor()
+        return conn.cursor()
+    except Exception as error:
+        print(f"Erro ao conectar ao banco de dados: {error}")
+       ''' cur = conn.cursor()
         cur.execute('SELECT * FROM test LIMIT 5')
 
         rows = cur.fetchall()
@@ -31,10 +34,8 @@ def connect_and_query():
             print(row)
 
         cur.close()
-        conn.close()
+        conn.close()'''
 
-    except Exception as error:
-        print(f"Erro ao conectar ao banco de dados: {error}")
+   
 
-if __name__ == '__main__':
-    connect_and_query()
+
