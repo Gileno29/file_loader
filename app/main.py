@@ -9,7 +9,7 @@ app = Flask(__name__)
 UPLOAD_FOLDER='uploads/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'txt'}
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -29,10 +29,10 @@ def hello_world():
 @app.route("/upload", methods=['POST', 'GET'])
 def upload():
     file = request.files['file']
-    print(request.files)
+    #print(request.files)
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    print("Caminho: ", str(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+    #print("Caminho: ", str(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
     new_conection=conection.Conection()
     loadfile.create_base(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)), new_conection)
 
