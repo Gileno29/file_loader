@@ -42,7 +42,7 @@ def map_fields(fields):
 def create_base(file_path, conection):
     with open(file_path, "r") as file:
         head_line = file.readline()
-        conection.create(map_fields(head_line))
+        conection.create(map_fields(head_line), 'vendas')
 
 file_path='uploads/Base.txt'
 def load(file_path, conection=None):
