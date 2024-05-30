@@ -15,7 +15,6 @@ class Conection:
     def create(self, columns):
         db_url = f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
         engine = create_engine(db_url)
-        
         metadata_obj = MetaData()
         cols = []
         for col_name in columns:  
@@ -26,5 +25,6 @@ class Conection:
         #metadata.create_all(engine)
         metadata_obj.create_all(engine)
     
-
+    def load_data(self, data):
+        pass
 
