@@ -1,41 +1,30 @@
 import os
-import psycopg2
-from psycopg2 import sql
 from dotenv import load_dotenv
+from sqlalchemy import create_engine,  Table, Column, String, Integer, inspect
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import MetaData
 
-# Carregar variáveis de ambiente do arquivo .env
-load_dotenv()
+class Conection:
+    def __init__(self, db_host=None, db_database=None, db_user=None, db_pasword=None, db_port=None):
+        load_dotenv()
+        self.host = os.getenv('DB_HOST') if not db_host else db_host
+        self.database = os.getenv('DB_DATABASE') if not db_database else db_database
+        self.user = os.getenv('DB_USER') if not db_user else db_user
+        self.password = os.getenv('DB_PASSWORD') if not db_pasword else db_pasword
+        self.port = os.getenv('DB_PORT') if not db_port else db_port
+    def create(self, columns):
+        db_url = f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
+        engine = create_engine(db_url)
+        
+        metadata_obj = MetaData()
+        cols = []
+        for col_name in columns:  
+            cols.append(Column(col_name, String(255)))
 
-host = os.getenv('DB_HOST')
-database = os.getenv('DB_DATABASE')
-user = os.getenv('DB_USER')
-password = os.getenv('DB_PASSWORD')
-port = os.getenv('DB_PORT')
-
-def connect():
-    try:
-        conn = psycopg2.connect(
-            host=host,
-            database=database,
-            user=user,
-            password=password,
-            port=port
-        )
-
-        return conn.cursor()
-    except Exception as error:
-        print(f"Erro ao conectar ao banco de dados: {error}")
-       ''' cur = conn.cursor()
-        cur.execute('SELECT * FROM test LIMIT 5')
-
-        rows = cur.fetchall()
-
-        for row in rows:
-            print(row)
-
-        cur.close()
-        conn.close()'''
-
-   
+        #print(cols)
+        metadata = Table('vendas',metadata_obj,*cols, schema='public')
+        #metadata.create_all(engine)
+        metadata_obj.create_all(engine)
+    
 
 
