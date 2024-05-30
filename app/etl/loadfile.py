@@ -7,9 +7,10 @@ import re
 normatize= lambda f: unidecode(f.strip().replace(' ', '_').lower())
 
 
+def remove_empty_fields(list):
+    return [[item for item in sublist if item] for sublist in list]
 
-
-def normatize_data(data):
+'''def normatize_data(data):
     data_list=[]
     for d in data:
         data_list.append(d.split(' '))
@@ -19,7 +20,7 @@ def normatize_data(data):
             if l=='':
                 data_list
     data_list=list(filter(is_not_empty_custom, data_list))
-    print(data_list[0])
+    print(data_list[0])'''
 
 
 def map_fields(fields):
@@ -47,7 +48,8 @@ file_path='uploads/Base.txt'
 def load(file_path, conection=None):
     with open(file_path, "r") as file:
         lines= file.readlines()
-        normatize_data(lines[1:])
+        no_empty_fields_list=remove_empty_fields(lines[1:])
+        
         #for line in lines[1:]:
         #    print(line)
         #    break
