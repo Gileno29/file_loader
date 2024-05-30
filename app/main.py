@@ -1,5 +1,7 @@
 from flask import Flask,  request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
+from app.etl import loadfile
+from app.db import conection
 import os
 
 app = Flask(__name__)
@@ -21,13 +23,16 @@ def hello_world():
     <form method=post enctype=multipart/form-data action=/upload>
       <input type=file name=file>
       <input type=submit value=Upload>
-    </form>'''
+    </form>'''  
 
 
 @app.route("/upload", methods=['POST', 'GET'])
 def upload():
-    file = request.files['arquivo1']
+    file = request.files['file']
     print(request.files)
     filename = secure_filename(file.filename)
     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    print("Caminho: ", str(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+    new_conection=conection.Conection()
+    loadfile.create_base(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)), new_conection)
 
