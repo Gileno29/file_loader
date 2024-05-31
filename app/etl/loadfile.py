@@ -1,5 +1,21 @@
 from unidecode import unidecode
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
 import re
+Base = declarative_base()
+
+class Vendas(Base):
+    __tablename__ = 'vendas'
+    id = Column(Integer, primary_key=True)
+    private = Column(String)
+    incompleto = Column(String)
+    ticket_medio = Column(String)
+    ticket_medio_ultima_compra= Column(String)
+    loja_mais_frequente= Column(String)
+    loja_da_ultima_compra= Column(String)
+    
+
+
 """
     funcao para mapear cabecalhos do arquivo explitado utilizando fatiamento
 
@@ -7,10 +23,9 @@ import re
 normatize= lambda f: unidecode(f.strip().replace(' ', '_').lower())
 
 
-def remove_empty_fields(data):
+def remove_empty_fields(self,data):
     return str(re.sub(",,{1,}",",",(str(data).replace(',','.').replace(' ',',')))).split(',')
 
-    #return [ sublist for sublist in data if sublist and sublist!='' and sublist!=' ']
 
 '''def normatize_data(data):
     data_list=[]
@@ -25,7 +40,7 @@ def remove_empty_fields(data):
     print(data_list[0])'''
 
 
-def map_fields(fields):
+def map_fields(self, fields):
     coluns=[normatize(fields[1:4]),
             normatize(fields[19:28]),
             normatize(fields[29:42]),
@@ -41,12 +56,12 @@ def map_fields(fields):
     return coluns
 
 
-def create_base(file_path, conection):
+def create_base(self, file_path, conection):
     with open(file_path, "r") as file:
         head_line = file.readline()
         conection.create(map_fields(head_line), 'vendas')
 
-def load(file_path, conection):
+def load(self, file_path, conection):
     with open(file_path, "r") as file:
         lines= file.readlines()
         list_lines=[]
@@ -67,21 +82,4 @@ def load(file_path, conection):
 #load(file_path)
 
 
-
-'''
-df = pd.read_csv(file_path, delimiter='\t')
-
-print(df.head())
-
-header = pd.read_csv(file_path, delimiter='\0', nrows=2)
-column_names = header.columns.tolist()
-print(str(column_names))
-
-
-cpf=str(column_names)[3:7]
-print(cpf)
-
-#test=str(column_names).split('\t')
-#print(test)
-'''
 
