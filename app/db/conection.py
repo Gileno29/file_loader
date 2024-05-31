@@ -22,7 +22,7 @@ class Conection:
             cols.append(Column(col_name, String(255)))
 
         #print(cols)
-        metadata = Table(table,metadata_obj,*cols, schema='public')
+        Table(table,metadata_obj,*cols, schema='public')
 
         metadata_obj.create_all(engine)
     
@@ -32,8 +32,13 @@ class Conection:
 
         Session = sessionmaker(bind=engine)
         session = Session()
-        insert=table(*data)
-        session.add(insert)
+        metadata= MetaData()
+        my_table=Table(table, metadata, autoload_with=engine)
+        print(data)
+        insert_query = my_table.insert().values(data)
+        session.execute(insert_query)
         session.commit()
+    
+        
 
 

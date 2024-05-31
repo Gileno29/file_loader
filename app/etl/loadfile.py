@@ -7,8 +7,10 @@ import re
 normatize= lambda f: unidecode(f.strip().replace(' ', '_').lower())
 
 
-def remove_empty_fields(list):
-    return [[item for item in sublist if item] for sublist in list]
+def remove_empty_fields(data):
+    return str(re.sub(",,{1,}",",",(str(data).replace(',','.').replace(' ',',')))).split(',')
+
+    #return [ sublist for sublist in data if sublist and sublist!='' and sublist!=' ']
 
 '''def normatize_data(data):
     data_list=[]
@@ -44,17 +46,25 @@ def create_base(file_path, conection):
         head_line = file.readline()
         conection.create(map_fields(head_line), 'vendas')
 
-file_path='uploads/Base.txt'
-def load(file_path, conection=None):
+def load(file_path, conection):
     with open(file_path, "r") as file:
         lines= file.readlines()
-        no_empty_fields_list=remove_empty_fields(lines[1:])
+        list_lines=[]
+        for l in lines:
+            #list_lines.append(l)
+            print(remove_empty_fields(l))
+            conection.save(remove_empty_fields(l), 'vendas')
+            
+#print(list_lines[1])
+        #print(remove_empty_fields([list_lines[1]]))
+        #conection.save(remove_empty_fields(list_lines), 'vendas')
         
         #for line in lines[1:]:
         #    print(line)
         #    break
+        #print(no_empty_fields_list[1])
 
-load(file_path)
+#load(file_path)
 
 
 

@@ -30,9 +30,11 @@ def hello_world():
 def upload():
     file = request.files['file']
     #print(request.files)
-    filename = secure_filename(file.filename)
-    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    #print("Caminho: ", str(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
-    new_conection=conection.Conection()
-    loadfile.create_base(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)), new_conection)
+    if file:
+      filename = secure_filename(file.filename)
+      file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+      #print("Caminho: ", str(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
+      new_conection=conection.Conection()
+      loadfile.create_base(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)), new_conection)
+      loadfile.load(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)),new_conection)
 
