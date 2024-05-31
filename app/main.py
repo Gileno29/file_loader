@@ -1,6 +1,6 @@
 from flask import Flask,  request, redirect, url_for, flash
 from werkzeug.utils import secure_filename
-from app.etl import loadfile
+from app.etl import venda
 from app.db import conection
 import os
 
@@ -81,7 +81,7 @@ def upload():
       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
       #print("Caminho: ", str(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
       new_conection=conection.Conection()
-      new_venda= loadfile.Vendas()
+      new_venda= venda.Vendas()
       new_conection.drop_table(new_venda)
       #print(new_venda)
       new_venda.load(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)), new_conection)
