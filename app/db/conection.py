@@ -40,8 +40,8 @@ class Conection:
   
     def drop_table(self, table):
         engine = create_engine(self.db_url)
-        table.drop(engine, checkfirst=True)
-        table.create(engine)
+        table.__table__.drop(engine, checkfirst=True)
+        table.__table__.create(engine)
         
 
 
