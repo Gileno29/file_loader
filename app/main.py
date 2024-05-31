@@ -35,6 +35,8 @@ def upload():
       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
       #print("Caminho: ", str(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
       new_conection=conection.Conection()
-      loadfile.create_base(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)), new_conection)
-      loadfile.load(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)),new_conection)
+      new_venda= loadfile.Vendas()
+      new_conection.drop_table(new_venda)
+      #print(new_venda)
+      new_venda.load(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)), new_conection)
 
