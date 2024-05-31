@@ -14,28 +14,17 @@ class Conection:
         self.password = os.getenv('DB_PASSWORD') 
         self.port = os.getenv('DB_PORT')
         self.db_url=f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
+
     def create(self, table):
         engine = create_engine(self.db_url)
         table.metadata.create_all(engine)
-        ''''metadata_obj = MetaData()'''
-        '''cols = []'''
-    '''for col_name in columns:  
-            cols.append(Column(col_name, String(255)))
-
-        #print(cols)
-        Table(table,metadata_obj,*cols, schema='public')
-
-        metadata_obj.create_all(engine)'''
     
     def save(self, data, table):
         engine = create_engine(self.db_url)
-        Session = sessionmaker(bind=engine)
-        session = Session()
-        metadata= MetaData()
-        my_table=Table(table, metadata, autoload_with=engine)
         print(data)
-        insert_query = my_table.insert().values(data)
-        session.execute(insert_query)
+        s = sessionmaker(bind=engine)
+        session = s()
+        session.add(data)
         session.commit()
   
     def drop_table(self, table):
