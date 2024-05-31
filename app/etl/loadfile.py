@@ -39,6 +39,9 @@ def remove_empty_fields(self,data):
     data_list=list(filter(is_not_empty_custom, data_list))
     print(data_list[0])'''
 
+def recreate_table(self,tabela, engine, conection):
+    tabela.drop(engine, checkfirst=True)  # Remove a tabela se ela existir
+    tabela.create(engine)
 
 def map_fields(self, fields):
     coluns=[normatize(fields[1:4]),

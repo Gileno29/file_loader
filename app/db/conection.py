@@ -38,7 +38,9 @@ class Conection:
         insert_query = my_table.insert().values(data)
         session.execute(insert_query)
         session.commit()
-    
+    def drop_table(self, table):
+        table.drop(engine, checkfirst=True)
+        tabela.create(engine)
         
 
 
