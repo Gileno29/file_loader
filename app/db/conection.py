@@ -14,9 +14,9 @@ class Conection:
         self.password = os.getenv('DB_PASSWORD') 
         self.port = os.getenv('DB_PORT')
         self.db_url=f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
-    def create(self, columns=None, table=None):
+    def create(self, table):
         engine = create_engine(self.db_url)
-        table.create(engine)
+        table.metadata.create_all(engine)
         ''''metadata_obj = MetaData()'''
         '''cols = []'''
     '''for col_name in columns:  
@@ -41,7 +41,7 @@ class Conection:
     def drop_table(self, table):
         engine = create_engine(self.db_url)
         table.drop(engine, checkfirst=True)
-        tabela.create(engine)
+        table.create(engine)
         
 
 
