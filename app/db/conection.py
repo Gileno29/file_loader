@@ -6,16 +6,16 @@ from sqlalchemy import MetaData
 from sqlalchemy.orm import sessionmaker
 
 class Conection:
-    def __init__(self, db_host=None, db_database=None, db_user=None, db_pasword=None, db_port=None):
+    def __init__(self):
         load_dotenv()
-        self.host = os.getenv('DB_HOST') if not db_host else db_host
-        self.database = os.getenv('DB_DATABASE') if not db_database else db_database
-        self.user = os.getenv('DB_USER') if not db_user else db_user
-        self.password = os.getenv('DB_PASSWORD') if not db_pasword else db_pasword
-        self.port = os.getenv('DB_PORT') if not db_port else db_port
+        self.host = os.getenv('DB_HOST') 
+        self.database = os.getenv('DB_DATABASE') 
+        self.user = os.getenv('DB_USER') 
+        self.password = os.getenv('DB_PASSWORD') 
+        self.port = os.getenv('DB_PORT')
+        self.db_url=f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
     def create(self, columns, table):
-        db_url = f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
-        engine = create_engine(db_url)
+        engine = create_engine(self.db_url)
         metadata_obj = MetaData()
         cols = []
         for col_name in columns:  
@@ -27,9 +27,7 @@ class Conection:
         metadata_obj.create_all(engine)
     
     def save(self, data, table):
-        db_url = f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
-        engine = create_engine(db_url)
-
+        engine = create_engine(self.db_url)
         Session = sessionmaker(bind=engine)
         session = Session()
         metadata= MetaData()
