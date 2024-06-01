@@ -35,7 +35,7 @@ class Vendas(Base):
         cpfcnpj = re.sub(r'\D', '', cpfcnpj)
         if t=='f':
             if cpfcnpj =='':
-                return False, formats_cpf(cpfcnpj)
+                return False, None
             elif cpfcnpj == cpfcnpj[0] * len(cpfcnpj):
                 return False, formats_cpf(cpfcnpj)
             elif len(cpfcnpj)==11:
@@ -44,7 +44,7 @@ class Vendas(Base):
                 return False, formats_cpf(cpfcnpj)
         elif t=='j':
             if cpfcnpj =='':
-                return False, formats_cnpj(cpfcnpj)
+                return False, None
             elif cpfcnpj == cpfcnpj[0] * len(cpfcnpj):
                 return False, formats_cnpj(cpfcnpj)
             elif len(cpfcnpj) == 14:
