@@ -18,29 +18,36 @@ class Vendas(Base):
     loja_mais_frequente= Column(String)
     loja_da_ultima_compra= Column(String)
     cpf_valido= Column(Boolean, default=True)
-    cnpj_invalido= Column(Boolean, default=True)
+    cnpj_valido= Column(Boolean, default=True)
     
     
+   
+   
     @staticmethod
     def remove_empty_fields(data):
         return str(re.sub(",,{1,}",",",(str(data).replace(',','.').replace(' ',',')))).split(',')
 
    
+
     @staticmethod
-    def cpf_is_valid(cpfcnpj, t='f'):
+    def cpfcnpj_is_valid(cpfcnpj, t='f'):
         cpfcnpj = re.sub(r'\D', '', cpfcnpj)
         if t=='f':
-            if cpfcnpj == cpfcnpj[0] * len(cpfcnpj):
+            if cpfcnpj =='':
+                return False, formats_cpf(cpfcnpj)
+            elif cpfcnpj == cpfcnpj[0] * len(cpfcnpj):
                 return False, formats_cpf(cpfcnpj)
             elif len(cpfcnpj)==11:
                 return True, formats_cpf(cpfcnpj) 
             else:
                 return False, formats_cpf(cpfcnpj)
         elif t=='j':
-            if cpfcnpj == cpfcnpj[0] * len(cpfcnpj):
+            if cpfcnpj =='':
+                return False, formats_cnpj(cpfcnpj)
+            elif cpfcnpj == cpfcnpj[0] * len(cpfcnpj):
                 return False, formats_cnpj(cpfcnpj)
             elif len(cpfcnpj) == 14:
-                return False, formats_cnpj(cpfcnpj)
+                return True, formats_cnpj(cpfcnpj)
             else:
                 return False, formats_cpf(cpfcnpj)
 
@@ -55,14 +62,16 @@ class Vendas(Base):
                 if count==1:
                     continue
                 fields=self.remove_empty_fields(l)
-                new_entry=Vendas(cpf=fields[0],private=fields[1],
-                                incompleto=fields[2],data_ultima_compra=fields[3],
-                                ticket_medio=fields[4], ticket_medio_ultima_compra=fields[5],
-                                loja_mais_frequente=fields[6],
-                                loja_da_ultima_compra=fields[7] )
-                valid, cpf=self.cpf_is_valid(new_entry.cpf)
-                new_entry.cpf = cpf
-                new_entry.cpf_valido=valid
+                
+                new_entry=Vendas()
+                new_entry.cpf_valido,new_entry.cpf=self.cpfcnpj_is_valid(fields[0])
+                new_entry.private=int(fields[1])
+                new_entry.incompleto=int(fields[2])
+                new_entry.data_ultima_compra=fields[3] if fields[3]!='NULL' else None
+                new_entry.ticket_medio=fields[4].replace(',','.') if fields[4]!='NULL' else 0.00
+                new_entry.ticket_medio_ultima_compra=fields[5].replace(',','.') if fields[5]!='NULL' else 0.00
+                new_entry.cnpj_valido, new_entry.loja_mais_frequente= self.cpfcnpj_is_valid(fields[6], 'j')
+                new_entry.cnpj_valido, new_entry.loja_da_ultima_compra= self.cpfcnpj_is_valid(fields[7], 'j')
 
                 conection.save(new_entry, self.__tablename__)
             

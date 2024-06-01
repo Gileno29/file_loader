@@ -75,14 +75,11 @@ def hello_world():
 @app.route("/upload", methods=['POST', 'GET'])
 def upload():
     file = request.files['file']
-    #print(request.files)
     if file:
       filename = secure_filename(file.filename)
       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-      #print("Caminho: ", str(os.path.join(app.config['UPLOAD_FOLDER'], filename)))
       new_conection=conection.Conection()
       new_venda= venda.Vendas()
       new_conection.drop_table(new_venda)
-      #print(new_venda)
       new_venda.load(str(os.path.join(app.config['UPLOAD_FOLDER'], filename)), new_conection)
 
