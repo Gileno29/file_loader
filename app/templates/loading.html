@@ -1,16 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Loading...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processando...</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-    <h1>Loading...</h1>
-    <p>Your file is being processed. Please wait...</p>
+    <h1>Processando seu arquivo...</h1>
+    <div class="loader"></div>
     <script>
-        // Redirect back to the previous page after a delay
-        setTimeout(function() {
-            window.location.href = document.referrer;
-        }, 5000); // Adjust the timeout duration as needed
+        function checkStatus() {
+            fetch('/status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.done) {
+                        window.location.href = '/';
+                    } else {
+                        setTimeout(checkStatus, 1000);
+                    }
+                });
+        }
+        checkStatus();
     </script>
 </body>
+</html>
+
 </html>
