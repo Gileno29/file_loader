@@ -1,6 +1,7 @@
 from unidecode import unidecode
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, Boolean, Date, DECIMAL
+from flask import Flask,  request, render_template
 import re
 Base = declarative_base()
 
@@ -51,16 +52,32 @@ class Vendas(Base):
             else:
                 return False, formats_cpf(cpfcnpj)
 
+    @staticmethod
+    def process_line(self,line):
+        fields = self.remove_empty_fields(line)
+        
+        new_entry = Vendas()
+        new_entry.cpf_valido, new_entry.cpf = self.cpfcnpj_is_valid(fields[0])
+        new_entry.private = int(fields[1])
+        new_entry.incompleto = int(fields[2])
+        new_entry.data_ultima_compra = fields[3] if fields[3] != 'NULL' else None
+        new_entry.ticket_medio = fields[4].replace(',', '.') if fields[4] != 'NULL' else 0.00
+        new_entry.ticket_medio_ultima_compra = fields[5].replace(',', '.') if fields[5] != 'NULL' else 0.00
+        new_entry.cnpj_valido, new_entry.loja_mais_frequente = self.cpfcnpj_is_valid(fields[6], 'j')
+        new_entry.cnpj_valido, new_entry.loja_da_ultima_compra = self.cpfcnpj_is_valid(fields[7], 'j')
+
+        return new_entry
 
         
+
     def load(self, file_path, conection):
         with open(file_path, "r") as file:
             lines= file.readlines()
             count=0
-            for l in lines:
-                count+=1
+            for l in lines[1:]:
+                '''count+=1
                 if count==1:
-                    continue
+                    continue'''
                 fields=self.remove_empty_fields(l)
                 
                 new_entry=Vendas()
@@ -74,6 +91,4 @@ class Vendas(Base):
                 new_entry.cnpj_valido, new_entry.loja_da_ultima_compra= self.cpfcnpj_is_valid(fields[7], 'j')
 
                 conection.save(new_entry, self.__tablename__)
-            
-
-
+        return True
