@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Loading...</title>
+</head>
+<body>
+    <h1>Loading...</h1>
+    <p>Your file is being processed. Please wait...</p>
+    <script>
+        // Redirect back to the previous page after a delay
+        setTimeout(function() {
+            window.location.href = document.referrer;
+        }, 5000); // Adjust the timeout duration as needed
+    </script>
+</body>
+</html>
