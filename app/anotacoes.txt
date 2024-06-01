@@ -4,3 +4,7 @@ curl --form "file=@Base.txt" "http://localhost:5000/upload"
 create user myuser with  password
 
 https://dev.to/immurderer/guia-de-estilo-python-pep-8-lm8
+gunicorn --timeout 3600 -w 4 -b 0.0.0.0:5000 wsgi:app
+
+
+gunicorn --workers=3 --worker-class=tornado  --timeout=90 --graceful-timeout=10 --log-level=DEBUG --bind 127.0.0.1:5000  wsgi:app
