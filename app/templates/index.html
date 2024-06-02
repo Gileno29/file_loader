@@ -29,8 +29,12 @@
             cursor: pointer;
             margin: 5px;
         }
-        .button-container button:hover {
-            background-color: #45a049;
+        #reset{
+            background-color: crimson;
+        }
+        #list{
+            background-color: darkblue; 
+            
         }
         .upload-container {
             background-color: #fff;
@@ -60,8 +64,8 @@
 <body>
     <div class="container">
         <div class="button-container">
-            <button onclick="window.location.href='/reset_db'">Resetar Base</button>
-            <button onclick="window.location.href='/list_records'">Listar Registros</button>
+            <button id="reset" onclick="window.location.href='/reset_db'">Resetar Base</button>
+            <button id="list" onclick="window.location.href='/list_records'">Listar Registros</button>
         </div>
         <div class="upload-container">
             <h1>Envie seu arquivo</h1>
