@@ -14,12 +14,29 @@
             margin: 0;
             background-color: #f4f4f9;
         }
+        .container {
+            text-align: center;
+        }
+        .button-container {
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button-container button:hover {
+            background-color: #45a049;
+        }
         .upload-container {
             background-color: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
         }
         h1 {
             color: #333;
@@ -41,12 +58,18 @@
     </style>
 </head>
 <body>
-    <div class="upload-container">
-        <h1>Envie seu arquivo</h1>
-        <form method="post" enctype="multipart/form-data" action="/upload">
-            <input type="file" name="file" required>
-            <input type="submit" value="Upload">
-        </form>
+    <div class="container">
+        <div class="button-container">
+            <button onclick="window.location.href='/reset_db'">Resetar Base</button>
+            <button onclick="window.location.href='/list_records'">Listar Registros</button>
+        </div>
+        <div class="upload-container">
+            <h1>Envie seu arquivo</h1>
+            <form method="post" enctype="multipart/form-data" action="/upload">
+                <input type="file" name="file" required>
+                <input type="submit" value="Upload">
+            </form>
+        </div>
     </div>
 </body>
 </html>
