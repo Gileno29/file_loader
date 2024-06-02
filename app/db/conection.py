@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine,  Table, Column, String, Integer, inspect, insert
+from sqlalchemy import create_engine,  Table, Column, String, Integer, inspect, insert, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import MetaData
 from sqlalchemy.orm import sessionmaker
@@ -19,7 +19,7 @@ class Conection:
         engine = create_engine(self.db_url)
         table.metadata.create_all(engine)
     
-    def save(self, data, table):
+    def save(self, data):
         engine = create_engine(self.db_url)
         print(data)
         s = sessionmaker(bind=engine)
@@ -27,10 +27,16 @@ class Conection:
         session.add(data)
         session.commit()
   
-    def drop_table(self, table):
+    def recreate_table(self, table):
         engine = create_engine(self.db_url)
         table.__table__.drop(engine, checkfirst=True)
         table.__table__.create(engine)
-        
+   
+    def list_all(self, table):
+        engine = create_engine(self.db_url)
+        s = sessionmaker(bind=engine)
+        session = s()
+        #print(session.query(table.table_schema).filter(table.tablename == 'vendas'))
+        return session.execute(select(table.__table__)).all()
 
 
