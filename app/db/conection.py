@@ -26,6 +26,7 @@ class Conection:
         session = s()
         session.add(data)
         session.commit()
+        session.close()
   
     def recreate_table(self, table):
         engine = create_engine(self.db_url)
@@ -37,6 +38,9 @@ class Conection:
         s = sessionmaker(bind=engine)
         session = s()
         #print(session.query(table.table_schema).filter(table.tablename == 'vendas'))
-        return session.execute(select(table.__table__)).all()
+        records= session.execute(select(table.__table__)).all()
+        session.close()
+        return records
+        
 
 
