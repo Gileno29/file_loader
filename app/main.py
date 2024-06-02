@@ -17,13 +17,12 @@ def allowed_file(filename):
 
 def process_file(file_path, conection):
     new_venda = venda.Vendas()
-    conection.drop_table(new_venda)
-    if new_venda.load(file_path, conection):
-        status['processing'] = False
-        status['done'] = True
+    new_venda.load(file_path, conection)
+    status['processing'] = False
+    status['done'] = True
 
 @app.route("/")
-def hello_world():
+def index():
       return render_template('index.html')
 
 
@@ -61,3 +60,19 @@ def loading():
 @app.route('/status')
 def get_status():
     return jsonify(status)
+
+@app.route('/reset_db')
+def reset_db():
+    new_conection=conection.Conection()
+    new_venda=venda.Vendas()
+    new_conection.recreate_table(new_venda)
+    return redirect(url_for('index'))
+
+@app.route('/list_records')
+def list_records():
+    new_conection=conection.Conection()
+    new_venda=venda.Vendas()
+    print("o retorno da funcao", new_conection.list_all(new_venda))
+    return jsonify(new_conection.list_all(new_venda))
+    
+    
