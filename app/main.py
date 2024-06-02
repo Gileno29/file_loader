@@ -73,21 +73,26 @@ def reset_db():
 def list_records():
     new_conection=conection.Conection()
     new_venda=venda.Vendas()
-    result=new_conection.list_all(new_venda)
+    try:
+        result=new_conection.list_all(new_venda)
+    except:
+        result=None
     records={}
-    for row in range(len(result)):
-      
-       records[row]={'id':result[row][0],
-                    'cpf': result[row][1],
-                    'private': result[row][2],
-                    'incompreto': result[row][3],
-                    'data_ultima_compra': result[row][4],
-                    'ticke_medio': result[row][5],
-                    'ticket_medio_ultima_compra': result[row][6],
-                    'loja_mais_frequente': result[row][7],
-                    'looja_da_ultima_compra': result[row][8],
-                    'cpf_valido': result[row][9],
-                    'cnpj_valido': result[row][10]}
+    if result:
+        for row in range(len(result)):
+        
+            records[row]={'id':result[row][0],
+                            'cpf': result[row][1],
+                            'private': result[row][2],
+                            'incompreto': result[row][3],
+                            'data_ultima_compra': result[row][4],
+                            'ticke_medio': result[row][5],
+                            'ticket_medio_ultima_compra': result[row][6],
+                            'loja_mais_frequente': result[row][7],
+                            'looja_da_ultima_compra': result[row][8],
+                            'cpf_valido': result[row][9],
+                            'cnpj_valido': result[row][10]}
 
-    return jsonify(records)
-    
+        return jsonify(records)
+    else:
+        return jsonify({'No file':400})
