@@ -89,7 +89,7 @@ def list_records():
                             'ticke_medio': result[row][5],
                             'ticket_medio_ultima_compra': result[row][6],
                             'loja_mais_frequente': result[row][7],
-                            'looja_da_ultima_compra': result[row][8],
+                            'loja_da_ultima_compra': result[row][8],
                             'cpf_valido': result[row][9],
                             'cnpj_valido': result[row][10]}
 

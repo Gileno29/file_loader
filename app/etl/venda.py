@@ -64,8 +64,8 @@ class Vendas(Base):
                 new_entry.private=int(fields[1])
                 new_entry.incompleto=int(fields[2])
                 new_entry.data_ultima_compra=fields[3] if fields[3]!='NULL' else None
-                new_entry.ticket_medio=fields[4].replace(',','.') if fields[4]!='NULL' else 0.00
-                new_entry.ticket_medio_ultima_compra=fields[5].replace(',','.') if fields[5]!='NULL' else 0.00
+                new_entry.ticket_medio=float(fields[4]) if fields[4]!='NULL' else 0.00
+                new_entry.ticket_medio_ultima_compra=float(fields[5]) if fields[5]!='NULL' else 0.00
                 new_entry.cnpj_valido, new_entry.loja_mais_frequente= self.cpfcnpj_is_valid(fields[6], 'j')
                 new_entry.cnpj_valido, new_entry.loja_da_ultima_compra= self.cpfcnpj_is_valid(fields[7], 'j')
 
