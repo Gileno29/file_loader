@@ -17,6 +17,7 @@ def allowed_file(filename):
 
 def process_file(file_path, conection):
     new_venda = venda.Vendas()
+    conection.create(new_venda)
     new_venda.load(file_path, conection)
     status['processing'] = False
     status['done'] = True
@@ -65,14 +66,28 @@ def get_status():
 def reset_db():
     new_conection=conection.Conection()
     new_venda=venda.Vendas()
-    new_conection.recreate_table(new_venda)
+    new_conection.recreate_table(new_venda) 
     return redirect(url_for('index'))
 
 @app.route('/list_records')
 def list_records():
     new_conection=conection.Conection()
     new_venda=venda.Vendas()
-    print("o retorno da funcao", new_conection.list_all(new_venda))
-    return jsonify(new_conection.list_all(new_venda))
-    
+    result=new_conection.list_all(new_venda)
+    records={}
+    for row in range(len(result)):
+      
+       records[row]={'id':result[row][0],
+                    'cpf': result[row][1],
+                    'private': result[row][2],
+                    'incompreto': result[row][3],
+                    'data_ultima_compra': result[row][4],
+                    'ticke_medio': result[row][5],
+                    'ticket_medio_ultima_compra': result[row][6],
+                    'loja_mais_frequente': result[row][7],
+                    'looja_da_ultima_compra': result[row][8],
+                    'cpf_valido': result[row][9],
+                    'cnpj_valido': result[row][10]}
+
+    return jsonify(records)
     
