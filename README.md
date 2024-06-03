@@ -39,7 +39,9 @@ git clone https://github.com/Gileno29/file_loader.git
 cd file_loader
 
 docker-compose up 
+
   ou 
+
 docker-compose up -d #rodar em backgroud
 ```
 
@@ -51,3 +53,20 @@ O sistema consiste em uma interface para inserção de uma base em .txt conforme
 ### interface sistema
 
 <img src="https://github.com/Gileno29/file_loader/blob/main/doc/img/interface_sistema.png"/>
+
+- Botao de reset:
+   Foi adicionado um funcionalidade para resete do database caso seja nesssário, esse botaõ vai dropar o database e recrear  a tabela.
+
+- Botao de  listar registros: 
+   Esse botão vai listar os registros inseridos no banco de dados em formato json, caso não haja registros vai retornar um json com not found.
+
+- Botao de Upload: vai adicionar vai pegar o arquivo selecionado e encaminha para o backend realizar o processamento do arquivo.
+
+
+
+## Estrutura do projeto
+
+## Infraestrutura
+
+## testes
+
