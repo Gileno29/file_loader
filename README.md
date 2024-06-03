@@ -18,6 +18,21 @@ Esse projeto tem como objetivo especifico realizar o caregamento de uma base de 
 Esse software foi desenvolvido visando o carregamento de um arquivo txt em formato especifico para uma base de dados PostgreSQL. Foi utilizado o Flamework flask para criação das rotas da aplicação e o SQLAlchemy para manipulação do database, a aplicação está sendo feito deploy docker-compose subindo 3 containers o da aplicação o do banco de dados e um ultimo do NGINX para fazer um proxy reverso para acesso do sistema.
 ## Instalação
 
+<div id='requerimentos'/>
+
+*******
+<h3>Requisitos:</h3>
+
+
+<ul>
+  <li>Sistema operacional Linux. Para esse exemplo está sendo usado o SO <a href="https://www.centos.org/centos-linux/">CentOS 7.</a></li>
+  <li>Git</li>
+  <li>Deve possuir o <a href="https://docs.docker.com/engine/install/centos/">Docker</a> e também o <a href="https://docs.docker.com/compose/install/">Docker-compose</a> para a segunda parte do projeto
+  <li>Node</li>
+  <li>Python 3</li>
+</ul>
+
+
 Instruções para instalar e configurar o ambiente de desenvolvimento.
 
 ```bash
