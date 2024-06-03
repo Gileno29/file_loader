@@ -108,5 +108,7 @@ A infraestrutura para deploy consiste em 3 servicos:
   - Banco de dados: container a parte com o database do sistema
   - Proxy Reverso: container com o serviço do NGIX que vai ser responsavel por receber as requisições e encaminhar ao serviço
 
+  <img src=https://github.com/Gileno29/file_loader/blob/main/doc/img/diagrama_estrutural.png/>
+
 ## testes
 
