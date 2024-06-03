@@ -223,3 +223,14 @@ O arquvo de configuração do NGINX define uma configuração de proxy simples, 
 
 ## testes
 
+Foram implementados tests para validacao de funcionalidades do sistema, eles se encontram na raiz do projeto dentro do diretorio ``tests``:
+
+```
+  tests/
+  ├── test_vendas.py
+  └── test_views.py
+```
+Para execução dos testes do projeto execute: 
+```python ...```
+
+A arquivo test_vendas.py possui os testes da classe Vendas do modulo etl, Já o arquivo test_views.py executa testes nas rotas do sistema que se encontram no arquivo main.py 
