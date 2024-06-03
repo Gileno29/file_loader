@@ -8,7 +8,6 @@ Esse projeto tem como objetivo especifico realizar o caregamento de uma base de 
 - [Instalação](#instalação)
 - [Uso](#uso)
 - [Testes](#testes)
-- [CI/CD](#cicd)
 - [Contribuindo](#contribuindo)
 - [Licença](#licença)
 - [Contato](#contato)
@@ -25,26 +24,30 @@ Esse software foi desenvolvido visando o carregamento de um arquivo txt em forma
 
 
 <ul>
-  <li>Sistema operacional Linux. Para esse exemplo está sendo usado o SO <a href="https://www.centos.org/centos-linux/">CentOS 7.</a></li>
   <li>Git</li>
-  <li>Deve possuir o <a href="https://docs.docker.com/engine/install/centos/">Docker</a> e também o <a href="https://docs.docker.com/compose/install/">Docker-compose</a> para a segunda parte do projeto
-  <li>Node</li>
-  <li>Python 3</li>
+  <li>Deve possuir o <a href="https://docs.docker.com/engine/install/centos/">Docker</a> e também o <a href="https://docs.docker.com/compose/install/">Docker-compose</a>
 </ul>
 
 
-Instruções para instalar e configurar o ambiente de desenvolvimento.
+Instruções para iniciar a aplicação.
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/Gileno29/file_loader.git
 
 # Navegue até o diretório do projeto
-cd seu-repositorio
+cd file_loader
 
-# Crie um ambiente virtual (opcional, mas recomendado)
-python -m venv venv
-source venv/bin/activate  # No Windows use: venv\Scripts\activate
+docker-compose up 
+  ou 
+docker-compose up -d #rodar em backgroud
+```
 
-# Instale as dependências
-pip install -r requirements.txt
+Seguindo a ordem corretamente o sistema deve iniciar e está acessivel no endereço: http://localhost/
+
+## Utilizacao
+O sistema consiste em uma interface para inserção de uma base em .txt conforme disponibilizada para análise. Essa interface posssui o campo de upload que deve receber o arquivo de texto, com cabecalho, esse arquivo vai ser processado e seus registros attribuidos ao database.
+
+### interface sistema
+
+<img src="https://github.com/Gileno29/file_loader/blob/main/doc/img/interface_sistema.png"/>
