@@ -138,6 +138,56 @@ O docker file consiste em uma imagem criada a partir da imagem python:3.9-slim e
  - expor a porta da aplicação 
  - Por ultimo vai chamar o gunicorn para subir o servico.
 
+OBS: caso seja altrado algo do código da aplicação da forma que está esse container precisar ser buildado novamente, execute:
+   ``` docker-compose down -v```
+   ```docker-compose up --build```
+
+
+### Docker compose file
+```
+  version: '3.8'
+
+  services:
+    web:
+      build: .
+      ports:
+        - "5000:5000"
+      depends_on:
+        - db
+      networks:
+        - webnet
+        - database
+
+    db:
+      image: postgres:13
+      environment:
+        POSTGRES_USER: uservendas
+        POSTGRES_PASSWORD: passvendas
+        POSTGRES_DB: venda
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
+      networks:
+        - database
+    nginx:
+      image: nginx:latest
+      ports:
+        - "80:80"
+      depends_on:
+        - web
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf
+      networks:
+        - webnet
+
+  volumes:
+    postgres_data:
+
+  networks:
+    webnet:
+    database:
+  ```
+O docker-compose vai definir 3 serviços em sua estrutura, web(aplicacao) db(database) e nginx(proxy).
+Os serviço web está tanto na rede do database quando na do proxy devido a necessidade de comunicação com ambos os serviços, enquando o proxy e o database encontran-se em suas respectivas redes apenas.
 
 ## testes
 
