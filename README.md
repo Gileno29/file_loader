@@ -62,6 +62,8 @@ O sistema consiste em uma interface para inserção de uma base em .txt conforme
 
 - Botao de Upload: vai adicionar vai pegar o arquivo selecionado e encaminha para o backend realizar o processamento do arquivo.
 
+o sistema incialmente começa sem a tabela destinada para os dados, quando adiconar o arquivo para carregamento essa tabela vai ser criada, e carregada com os dados, o sistema vai redirecionar para uma tela de loading e só preciso aguardar finalizar.
+
 
 
 ## Estrutura do projeto
