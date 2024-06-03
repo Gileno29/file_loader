@@ -4,7 +4,6 @@ from sqlalchemy import Column, Integer, String, Boolean, Date, DECIMAL
 from flask import Flask,  request, render_template
 import re
 Base = declarative_base()
-
 formats_cpf= lambda cpf : f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}" 
 formats_cnpj = lambda cnpj : f"{cnpj[:2]}.{cnpj[2:5]}.{cnpj[5:8]}/{cnpj[8:12]}-{cnpj[12:]}"
 class Vendas(Base):
