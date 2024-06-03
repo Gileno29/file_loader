@@ -24,7 +24,7 @@ def process_file(file_path, conection):
 
 @app.route("/")
 def index():
-      return render_template('index.html')
+      return render_template('index.html'),200
 
 
 @app.route("/upload", methods=['POST'])
@@ -51,12 +51,14 @@ def upload():
         except Exception as e:
             print("Erro ao startar Thread", e)
             
-        return redirect(url_for('loading'))
+        return redirect(url_for('loading'), code=302)
+    else:
+        return redirect(url_for('index'), code=403)
 
 
 @app.route('/loading')
 def loading():
-    return render_template('loading.html')
+    return render_template('loading.html'), 200
 
 @app.route('/status')
 def get_status():
@@ -67,7 +69,7 @@ def reset_db():
     new_conection=conection.Conection()
     new_venda=venda.Vendas()
     new_conection.recreate_table(new_venda) 
-    return redirect(url_for('index'))
+    return redirect(url_for('index'), code=302), 302
 
 @app.route('/list_records')
 def list_records():
@@ -93,6 +95,6 @@ def list_records():
                             'cpf_valido': result[row][9],
                             'cnpj_valido': result[row][10]}
 
-        return jsonify(records)
+        return jsonify(records), 200
     else:
-        return jsonify({'No file':400})
+        return jsonify({'message': 'No records found', 'status_code': 400}), 400
