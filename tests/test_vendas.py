@@ -30,16 +30,16 @@ class TestVendas(unittest.TestCase):
         self.assertEqual(Vendas.remove_empty_fields('    5,25    2     8,00     2,35'), ['',  '5.25', '2', '8.00','2.35'])
         self.assertEqual(Vendas.remove_empty_fields('    0.00    2     22,50     2,35'), ['',  '0.00','2', '22.50','2.35'])
 
-    def test_cpfcnpj_is_valid(self):
+    def test_cpfcnpj_valid_format(self):
         # CPF tests
-        self.assertEqual(Vendas.cpfcnpj_is_valid('12345678909', 'f'), (True, '123.456.789-09'))
-        self.assertEqual(Vendas.cpfcnpj_is_valid('11111111111', 'f'), (False, '111.111.111-11'))
-        self.assertEqual(Vendas.cpfcnpj_is_valid('', 'f'), (False, None))
-        self.assertEqual(Vendas.cpfcnpj_is_valid('1234567890', 'f'), (False, '123.456.789-0'))
+        self.assertEqual(Vendas.cpfcnpj_valid_format('12345678909', 'f'), (True, '123.456.789-09'))
+        self.assertEqual(Vendas.cpfcnpj_valid_format('11111111111', 'f'), (False, '111.111.111-11'))
+        self.assertEqual(Vendas.cpfcnpj_valid_format('', 'f'), (False, None))
+        self.assertEqual(Vendas.cpfcnpj_valid_format('1234567890', 'f'), (False, '123.456.789-0'))
         # CNPJ tests
-        self.assertEqual(Vendas.cpfcnpj_is_valid('12345678000195', 'j'), (True, '12.345.678/0001-95'))
-        self.assertEqual(Vendas.cpfcnpj_is_valid('', 'j'), (False, None))
-        self.assertEqual(Vendas.cpfcnpj_is_valid('1234567800019', 'j'), (False, '12.345.678/0001-9'))
+        self.assertEqual(Vendas.cpfcnpj_valid_format('12345678000195', 'j'), (True, '12.345.678/0001-95'))
+        self.assertEqual(Vendas.cpfcnpj_valid_format('', 'j'), (False, None))
+        self.assertEqual(Vendas.cpfcnpj_valid_format('1234567800019', 'j'), (False, '12.345.678/0001-9'))
 
 
       
