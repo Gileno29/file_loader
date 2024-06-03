@@ -188,6 +188,38 @@ OBS: caso seja altrado algo do código da aplicação da forma que está esse co
   ```
 O docker-compose vai definir 3 serviços em sua estrutura, web(aplicacao) db(database) e nginx(proxy).
 Os serviço web está tanto na rede do database quando na do proxy devido a necessidade de comunicação com ambos os serviços, enquando o proxy e o database encontran-se em suas respectivas redes apenas.
+### Proxy web:
+ ```
+  events {
+      worker_connections 1024;
+  }
+
+  http {
+      upstream web {
+          server web:5000;
+      }
+
+      server {
+          listen 80;
+
+          location / {
+              proxy_pass http://web;
+              proxy_set_header Host $host;
+              proxy_set_header X-Real-IP $remote_addr;
+              proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+              proxy_set_header X-Forwarded-Proto $scheme;
+              proxy_connect_timeout 3600s;
+              proxy_send_timeout 3600s;
+              proxy_read_timeout 3600s;
+              send_timeout 3600s;
+          }
+
+          # Ajuste para tamanhos de upload
+          client_max_body_size 16M;
+      }
+  }
+```
+O arquvo de configuração do NGINX define uma configuração de proxy simples, o timeout pode ser ajustado para menos, dependendo da situação, caso o arquivo enviado seja muito grande e demore a carregar demais a aplicação pode dar timeout.
 
 ## testes
 
