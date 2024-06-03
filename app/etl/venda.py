@@ -75,7 +75,7 @@ class Vendas(Base):
             for l in lines[1:]:
                 fields=self.remove_empty_fields(l)'''
                 
-        for bloco in pd.read_csv(file_path, chunksize=3000,sep='\t', iterator=True, header=None):
+        for bloco in pd.read_csv(file_path, chunksize=10000,sep='\t', iterator=True, header=None):
             # Convertendo o bloco em um DataFrame do Pandas
             #dados_df = bloco[0] 
             result=self.transformar_em_sublistas(bloco.values.tolist()[1:])
