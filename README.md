@@ -103,12 +103,41 @@ no mesmo nível que o diretorio de ``app`` temos o diretorio de ``tests`` direto
 ainda nesse nivel encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
 
 ## Infraestrutura
-A infraestrutura para deploy consiste em 3 servicos:
+A infraestrutura para deploy consiste em 3 partes:
   - Aplicao: se trata do sistema em si que é conteinarizado dentro de um container do python
   - Banco de dados: container a parte com o database do sistema
   - Proxy Reverso: container com o serviço do NGIX que vai ser responsavel por receber as requisições e encaminhar ao serviço
 
+  Digrama da Estrutura:
   <img src=https://github.com/Gileno29/file_loader/blob/main/doc/img/diagrama_estrutural.png/>
+
+### Docker file
+
+```
+  FROM python:3.9-slim
+
+  WORKDIR /app
+
+  COPY requirements.txt requirements.txt
+  RUN pip install -r requirements.txt
+
+
+  COPY . .
+
+
+  EXPOSE 5000
+
+
+  CMD ["gunicorn","--timeout" ,"800", "-w", "4", "-b", "0.0.0.0:5000", "wsgi:app"]
+
+```
+O docker file consiste em uma imagem criada a partir da imagem python:3.9-slim ele vai:
+ - criar o workdir da aplicacao
+ - enviar o arquivo de requirements e instalar eles
+ - Copiar os arquivos da aplicação e enviar para o container
+ - expor a porta da aplicação 
+ - Por ultimo vai chamar o gunicorn para subir o servico.
+
 
 ## testes
 
