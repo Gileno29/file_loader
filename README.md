@@ -103,6 +103,10 @@ no mesmo nível que o diretorio de ``app`` temos o diretorio de ``tests`` direto
 ainda nesse nivel encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
 
 ## Infraestrutura
+A infraestrutura para deploy consiste em 3 servicos:
+  - Aplicao: se trata do sistema em si que é conteinarizado dentro de um container do python
+  - Banco de dados: container a parte com o database do sistema
+  - Proxy Reverso: container com o serviço do NGIX que vai ser responsavel por receber as requisições e encaminhar ao serviço
 
 ## testes
 
