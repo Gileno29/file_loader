@@ -30,7 +30,7 @@ class Vendas(Base):
    
 
     @staticmethod
-    def cpfcnpj_is_valid(cpfcnpj, t='f'):
+    def cpfcnpj_valid_format(cpfcnpj, t='f'):
         cpfcnpj = re.sub(r'\D', '', cpfcnpj)
         if t=='f':
             if cpfcnpj =='':
@@ -59,13 +59,13 @@ class Vendas(Base):
                 fields=self.remove_empty_fields(l)
                 
                 new_entry=Vendas()
-                new_entry.cpf_valido,new_entry.cpf=self.cpfcnpj_is_valid(fields[0])
+                new_entry.cpf_valido,new_entry.cpf=self.cpfcnpj_valid_format(fields[0])
                 new_entry.private=int(fields[1])
                 new_entry.incompleto=int(fields[2])
                 new_entry.data_ultima_compra=fields[3] if fields[3]!='NULL' else None
                 new_entry.ticket_medio=float(fields[4]) if fields[4]!='NULL' else 0.00
                 new_entry.ticket_medio_ultima_compra=float(fields[5]) if fields[5]!='NULL' else 0.00
-                new_entry.cnpj_valido, new_entry.loja_mais_frequente= self.cpfcnpj_is_valid(fields[6], 'j')
-                new_entry.cnpj_valido, new_entry.loja_da_ultima_compra= self.cpfcnpj_is_valid(fields[7], 'j')
+                new_entry.cnpj_valido, new_entry.loja_mais_frequente= self.cpfcnpj_valid_format(fields[6], 'j')
+                new_entry.cnpj_valido, new_entry.loja_da_ultima_compra= self.cpfcnpj_valid_format(fields[7], 'j')
 
                 conection.save(new_entry)
