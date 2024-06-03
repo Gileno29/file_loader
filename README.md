@@ -31,7 +31,7 @@ Esse software foi desenvolvido visando o carregamento de um arquivo txt em forma
 
 Instruções para iniciar a aplicação.
 
-```bash
+```sh
 # Clone o repositório
 git clone https://github.com/Gileno29/file_loader.git
 
@@ -67,7 +67,7 @@ O sistema consiste em uma interface para inserção de uma base em .txt conforme
 ## Estrutura do projeto
 O projeto possui a seguinte estrutura:
 
-```
+```sh
   ├── app
   │   ├── db
   │   │   ├── conection.py
@@ -113,7 +113,7 @@ A infraestrutura para deploy consiste em 3 partes:
 
 ### Docker file
 
-```
+```sh
   FROM python:3.9-slim
 
   WORKDIR /app
@@ -144,7 +144,7 @@ OBS: caso seja altrado algo do código da aplicação da forma que está esse co
 
 
 ### Docker compose file
-```
+```yml
   version: '3.8'
 
   services:
@@ -189,7 +189,7 @@ OBS: caso seja altrado algo do código da aplicação da forma que está esse co
 O docker-compose vai definir 3 serviços em sua estrutura, web(aplicacao) db(database) e nginx(proxy).
 Os serviço web está tanto na rede do database quando na do proxy devido a necessidade de comunicação com ambos os serviços, enquando o proxy e o database encontran-se em suas respectivas redes apenas.
 ### Proxy web:
- ```
+ ```sh
   events {
       worker_connections 1024;
   }
@@ -225,7 +225,7 @@ O arquvo de configuração do NGINX define uma configuração de proxy simples, 
 
 Foram implementados tests para validacao de funcionalidades do sistema, eles se encontram na raiz do projeto dentro do diretorio ``tests``:
 
-```
+```sh
   tests/
   ├── test_vendas.py
   └── test_views.py
