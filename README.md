@@ -302,7 +302,7 @@ Foram implementados tests para validacao de funcionalidades do sistema, eles se 
   ├── test_vendas.py
   └── test_views.py
 ```
-Para execução dos testes do projeto vá até a raiz do projeto e execute: 
+Para execução dos testes do projeto vá até a raiz e execute: 
 ```python3 -m unittest discover -s tests```
 
-A arquivo test_vendas.py possui os testes da classe Vendas do modulo etl, Já o arquivo test_views.py executa testes nas rotas do sistema que se encontram no arquivo main.py.
+A arquivo test_vendas.py possui os testes da classe Vendas do modulo etl, já o arquivo test_views.py executa alguns testes basicos nas rotas do sistema que se encontram no arquivo main.py.
