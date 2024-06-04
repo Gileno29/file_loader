@@ -114,6 +114,7 @@ A infraestrutura para deploy consiste em 3 partes:
   - Proxy Reverso: container com o serviço do NGIX que vai ser responsavel por receber as requisições e encaminhar ao serviço
 
   Digrama da Estrutura:
+  
   <img src=https://github.com/Gileno29/file_loader/blob/main/doc/img/diagrama_estrutural.png/>
 
 ### Docker file
