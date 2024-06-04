@@ -18,7 +18,7 @@ Esse projeto tem como objetivo realizar o caregamento de uma base de dados em tx
 
  ## Sobre
 
-Esse software foi desenvolvido visando o carregamento de um arquivo txt em formato especifico para uma base de dados PostgreSQL. Foi utilizado o Flamework flask para criação das rotas da aplicação e o SQLAlchemy para manipulação do database, o deploy está sendo feito com docker-compose subindo 3 containers, aplicação, banco de dados e um último do NGINX para fazer um proxy reverso para acesso do sistema.
+Esse software foi desenvolvido visando o carregamento de um arquivo txt em formato especifico para uma base de dados PostgreSQL. Foi utilizado o Flamework Flask para criação das rotas da aplicação e o SQLAlchemy para manipulação do database, o deploy está sendo feito com docker-compose subindo 3 containers, aplicação, banco de dados e um último do NGINX para fazer um proxy reverso para acesso do sistema.
 
 
 
@@ -66,12 +66,12 @@ docker-compose up
 
 docker-compose up -d #rodar em backgroud
 ```
-Obs: Verifique se já possui serviços funcionando em sua máquina nas portas da aplicação, caso haja desative.
+*Obs:* Verifique se já possui serviços funcionando em sua máquina nas portas da aplicação, caso haja desative.
 
 Seguindo a ordem corretamente o sistema deve iniciar e está acessivel no endereço: http://localhost/
 
 ## Utilizacao
-O sistema consiste em uma interface para inserção de uma base em .txt, conforme disponibilizada para análise, em um banco de dados relacional PostgreSQL. Essa interface posssui o campo de upload que deve receber o arquivo de texto, com cabeçalho, esse arquivo vai ser processado e seus registros attribuidos ao database.
+O sistema consiste em uma interface para inserção de uma base em .txt, conforme disponibilizada para análise, em um banco de dados relacional PostgreSQL. Essa interface posssui o campo de upload que deve receber o arquivo de texto, com cabeçalho, esse arquivo vai ser processado e seus registros atribuidos ao database.
 
 *OBS*: O arquivo não deve ser alterado ou ter seu cabeçalho removido o script considera a primeira linha como sendo o cabecalho
 *OBS:* O arquivo está no projeto com o nome Base.txt
@@ -80,15 +80,17 @@ O sistema consiste em uma interface para inserção de uma base em .txt, conform
 
 <img src="https://github.com/Gileno29/file_loader/blob/main/doc/img/interface_sistema.png"/>
 
-- Botao de reset:
-   Foi adicionado um funcionalidade para resete do database caso seja nesssário, esse botaõ vai dropar o database e recrear  a tabela.
+- Opção de reset:
+   Foi adicionado uma funcionalidade para o reset do database, caso seja nesssário, essa opção vai dropar o database e recriar  a tabela.
 
-- Botao de  listar registros: 
-   Esse botão vai listar os registros inseridos no banco de dados em formato json, caso não haja registros vai retornar um json com not found.
+- Opção de  listar registros: 
+   Essa opção vai listar os registros inseridos no banco de dados em formato json, caso não haja registros vai retornar um json com not found.
 
-- Botao de Upload: vai adicionar vai pegar o arquivo selecionado e encaminha para o backend realizar o processamento do arquivo.
+- Opção de Upload: vai encaminhar o arquivo carregado para o backend realizar o processamento.
 
-o sistema incialmente começa sem a tabela destinada para os dados, quando adiconado o arquivo para carregamento essa tabela vai ser criada, e carregada com os dados, o sistema vai redirecionar para uma tela de loading e só é necessário aguardar finalizar o tempo de carregamento para os dados da base de exmplo completa está por volta dos 3.40 segundos.
+o sistema incialmente começa sem a tabela destinada para os dados, quando enviado o arquivo para carregamento essa tabela vai ser criada e carregada com os dados, o sistema vai redirecionar para uma tela de loading é necessário aguardar finalizar.
+
+O tempo de carregamento para os dados da base de exmplo completa está por volta dos 3.40 segundos.
 
 Dados tecnicos da máquina onde o teste foi executado:
 ```
