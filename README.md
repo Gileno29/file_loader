@@ -5,10 +5,10 @@ Esse projeto tem como objetivo especifico realizar o caregamento de uma base de 
 ## Tabela de Conteúdos
 
 - [Sobre](#sobre)
-- [Instalação](#instalação)
-- [Uso](#uso)
-- [Testes](#testes)
-- [Contribuindo](#contribuindo)
+- [Tecnologias](#instalação)
+- [Rodando a Aplicação](#uso)
+- [Estrutura do Projeto](#testes)
+- [Infraestrutura](#contribuindo)
 - [Licença](#licença)
 - [Contato](#contato)
 
