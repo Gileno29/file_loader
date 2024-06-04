@@ -259,6 +259,7 @@ O docker file consiste em uma imagem criada a partir da imagem ```python:3.9-sli
   ```
 O docker-compose vai definir 3 serviços em sua estrutura, web(aplicacao) db(database) e nginx(proxy).
 Os serviço web está tanto na rede do database quando na do proxy devido a necessidade de comunicação com ambos os serviços, enquando o proxy e o database encontran-se em suas respectivas redes apenas.
+
 ### Proxy web:
  ```sh
   events {
