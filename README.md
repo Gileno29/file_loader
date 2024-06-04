@@ -19,7 +19,7 @@ Esse software foi desenvolvido visando o carregamento de um arquivo txt em forma
 
 <div id='requerimentos'/>
 
-## tecnnologias
+## Tecnologias
 <div style="display: flex">
  <img align="center" alt="Flask" height="50" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original-wordmark.svg" />
  <img align="center" alt="Python" height="50" width="100"  width="80" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
