@@ -32,7 +32,8 @@ def upload():
     if request.method == 'POST':
         if 'file' not in request.files:
             return 'No file ', 400
-    
+    status['processing'] = True
+    status['done'] = False
     file = request.files['file']
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
@@ -43,8 +44,6 @@ def upload():
             print("Erro ao salvar", e)
             return 'Erro ao salvar o arquivo', 500
         
-        status['processing'] = True
-        status['done'] = False
         new_conection=conection.Conection()
         try:
             threading.Thread(target=process_file, args=(file_path, new_conection)).start()
