@@ -98,6 +98,26 @@ Dados tecnicos da máquina onde o teste foi executado:
 
 ```
 
+Após o carregamento é possivel verificar os registros no banco de dados.
+
+Execute:
+
+```bash
+  docker container ls #veja o ID do container
+
+  
+  docker container exec -it < container_id > /bin/bash
+```
+Dentro do container log no database:
+
+```bash
+  psql -U uservendas -d venda
+```
+Verifique os registros:
+```sql
+  select * from vendas;
+```
+
 Após isso é possivel visualizar os dados em formato json, através do botão de listar registros.
 
 Busca dos registros:
