@@ -5,19 +5,24 @@ Esse projeto tem como objetivo especifico realizar o caregamento de uma base de 
 ## Tabela de Conteúdos
 
 - [Sobre](#sobre)
-- [Tecnologias](#instalação)
+- [Tecnologias](#tecnologias)
+- [Requisitos](#requisitos)
 - [Rodando a Aplicação](#uso)
 - [Estrutura do Projeto](#testes)
 - [Infraestrutura](#contribuindo)
 - [Licença](#licença)
 - [Contato](#contato)
 
-## Sobre
+
+<div id='sobre'/>
+
+ ## Sobre
 
 Esse software foi desenvolvido visando o carregamento de um arquivo txt em formato especifico para uma base de dados PostgreSQL. Foi utilizado o Flamework flask para criação das rotas da aplicação e o SQLAlchemy para manipulação do database, a aplicação está sendo feito deploy docker-compose subindo 3 containers o da aplicação o do banco de dados e um ultimo do NGINX para fazer um proxy reverso para acesso do sistema.
-## Rodando a Aplicação
 
-<div id='requerimentos'/>
+
+
+<div id='tecnologias'/>
 
 ## Tecnologias
 <div style="display: flex">
@@ -35,15 +40,16 @@ Esse software foi desenvolvido visando o carregamento de um arquivo txt em forma
           
 </div>
 
+## Requisitos
+<div id='requisitos'/>
 <h3>Requisitos:</h3>
-
 
 <ul>
   <li>Git</li>
-  <li>Deve possuir o <a href="https://docs.docker.com/engine/install/centos/">Docker</a> e também o <a href="https://docs.docker.com/compose/install/">Docker-compose</a>
+  <li>Deve possuir o <a href="https://docs.docker.com/engine/install/centos/">Docker</a> e também o <a href="https://docs.docker.com/compose/install/">Docker-compose</a> instlados em sua máquina.
 </ul>
 
-
+## Rodando a Aplicação
 Instruções para iniciar a aplicação.
 
 ```sh
