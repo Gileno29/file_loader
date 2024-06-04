@@ -71,7 +71,7 @@ def reset_db():
     new_conection.recreate_table(new_venda) 
     return redirect(url_for('index'), code=302), 302
 
-@app.route('/list_records')
+@app.route('/list_records', methods=['GET'])
 def list_records():
     new_conection=conection.Conection()
     new_venda=venda.Vendas()
