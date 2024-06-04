@@ -91,6 +91,9 @@ o sistema incialmente começa sem a tabela destinada para os dados, quando adico
 
 Após isso é possivel visualizar os dados em formato json, através do botão de listar registros.
 
+Busca dos registros:
+
+
 
 
 
@@ -128,6 +131,11 @@ na raiz do diretorio ``app`` pode ser encontrado o arquivo ``main.py`` esse arqu
 no mesmo nível que o diretorio de ``app`` temos o diretorio de ``tests`` diretorio onde encontra-se os testes para validacao da classe de Vendas e das rotas da aplicação.
 
 ainda nesse nivel encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
+
+Retorno da consulta ao banco:
+<img src="https://github.com/Gileno29/file_loader/blob/main/doc/img/registros.png"/>
+
+
 
 ## Infraestrutura
 A infraestrutura para deploy consiste em 3 partes:
@@ -168,7 +176,7 @@ O docker file consiste em uma imagem criada a partir da imagem python:3.9-slim e
  - expor a porta da aplicação 
  - Por ultimo vai chamar o gunicorn para subir o servico.
 
-OBS: caso seja altrado algo do código da aplicação da forma que está esse container precisar ser buildado novamente, execute:
+*OBS*: caso seja altrado algo do código da aplicação da forma que está esse container precisar ser buildado novamente, execute:
    ``` docker-compose down -v```
    ```docker-compose up --build```
 
@@ -253,7 +261,7 @@ Os serviço web está tanto na rede do database quando na do proxy devido a nece
 ```
 O arquvo de configuração do NGINX define uma configuração de proxy simples, o timeout pode ser ajustado para menos, dependendo da situação, caso o arquivo enviado seja muito grande e demore a carregar demais a aplicação pode dar timeout.
 
-## testes
+## Testes
 
 Foram implementados tests para validacao de funcionalidades do sistema, eles se encontram na raiz do projeto dentro do diretorio ``tests``:
 
