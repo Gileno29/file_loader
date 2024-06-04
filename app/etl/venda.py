@@ -24,18 +24,45 @@ class Venda(Base):
     
     @staticmethod
     def make_list(origin_list):
-        changed_list = []
-        for string in origin_list:
-            string=str(string).replace(',', '.')
-            string = re.sub(r"\s+", ",", str(string))
-            sublist = string.replace("['","").replace("']", "").split(',')
-            changed_list.append(sublist)
-        return changed_list
+            """
+                Converte uma string para uma lista.
+                Args:
+                    origin_list (list): A lista original a ser convertida. Elementos podem ser strings ou outros iteráveis.
+
+                Returns:
+                    list: Uma nova lista onde cada elemento é uma sublista contendo os elementos originais transformados em floats.
+
+                Observações:
+                    - Substitui vírgulas (',') por pontos ('.') para conversão adequada para floats.
+                    - Remove todos os espaços em branco para garantir valores delimitados corretamente.
+                    - Remove aspas simples iniciais e finais ([' e ']) e separa os elementos por vírgulas.
+            """
+            changed_list = []
+            for string in origin_list:
+                string=str(string).replace(',', '.')
+                string = re.sub(r"\s+", ",", str(string))
+                sublist = string.replace("['","").replace("']", "").split(',')
+                changed_list.append(sublist)
+            return changed_list
    
    
 
     @staticmethod
     def valid_cpf_cnpj(cpf_cnpj, t='f'):
+        """
+        Valida e formata um CPF ou CNPJ.
+
+        Args:
+            cpf_cnpj (str): O CPF ou CNPJ a ser validado e formatado.
+            t (str, optional): Tipo de documento a ser validado. Padrão é 'f' para CPF.
+                - 'f': Valida e formata um CPF.
+                - 'j': Valida e formata um CNPJ.
+
+        Returns:
+                 Uma tupla contendo dois elementos.
+                - bool: True se o CPF/CNPJ for válido, False caso contrário.
+                - str (opcional): O CPF/CNPJ formatado  mesmo com digitos incompletos, ou None caso o campo seja completamente vazio.
+        """
         cpf_cnpj = re.sub(r'\D', '', cpf_cnpj)
         if t=='f':
             if cpf_cnpj =='':
@@ -74,6 +101,20 @@ class Venda(Base):
             
 
     def save_object(self,df, conection):
+        """
+        Recupera os dados de Vendas de um DataFrame para o banco de dados.
+
+        Argumentos:
+            df (pandas.DataFrame): O DataFrame contendo dados de clientes.
+            connection (object): Objeto de conexão com o banco de dados.
+
+        Retorno:
+            Nenhum
+
+        Observações:
+            - Valida e transforma os dados antes de salvá-los.
+            - Manipula valores ausentes de forma adequada.
+        """
   
         for line in list(df):
                 new_entry=Venda()
@@ -90,6 +131,16 @@ class Venda(Base):
 
                 
     def load(self, file_path, conection):  
+        """
+        Carrega um arquivo de dados delimitado e o salva no banco de dados usando threads paralelas.
+
+        Argumentos:
+            file_path (str): Caminho para o arquivo de dados delimitado.
+            connection (object): Objeto de conexão com o banco de dados.
+
+        Retorno:
+            Nenhum
+        """
         threads = []      
         for bloco in pd.read_csv(file_path, chunksize=3000,sep='\t',skiprows=1, iterator=True, header=None):
             thread=threading.Thread(target=self.save_object, args=(self.make_list(bloco.values.tolist()), conection))
