@@ -12,8 +12,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 ALLOWED_EXTENSIONS = {'txt'}
 status={}
-status['processing'] = True
-status['done'] = False
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
@@ -26,7 +25,9 @@ def process_file(file_path, conection):
 
 @app.route("/")
 def index():
-      return render_template('index.html'),200
+    status['processing'] = True
+    status['done'] = False
+    return render_template('index.html'),200
 
 
 @app.route("/upload", methods=['POST'])
