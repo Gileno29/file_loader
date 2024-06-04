@@ -1,6 +1,6 @@
 # File Loader
 
-Esse projeto tem como objetivo especifico realizar o caregamento de uma base de dados em txt para o banco de dados reelacional postgreSQL
+Esse projeto tem como objetivo realizar o caregamento de uma base de dados em txt para o banco de dados relacional postgreSQL
 
 ## Tabela de Conteúdos
 
@@ -18,7 +18,7 @@ Esse projeto tem como objetivo especifico realizar o caregamento de uma base de 
 
  ## Sobre
 
-Esse software foi desenvolvido visando o carregamento de um arquivo txt em formato especifico para uma base de dados PostgreSQL. Foi utilizado o Flamework flask para criação das rotas da aplicação e o SQLAlchemy para manipulação do database, a aplicação está sendo feito deploy docker-compose subindo 3 containers o da aplicação o do banco de dados e um ultimo do NGINX para fazer um proxy reverso para acesso do sistema.
+Esse software foi desenvolvido visando o carregamento de um arquivo txt em formato especifico para uma base de dados PostgreSQL. Foi utilizado o Flamework flask para criação das rotas da aplicação e o SQLAlchemy para manipulação do database, o deploy está sendo feito com docker-compose subindo 3 containers, aplicação, banco de dados e um último do NGINX para fazer um proxy reverso para acesso do sistema.
 
 
 
