@@ -88,7 +88,8 @@ O sistema consiste em uma interface para inserção de uma base em .txt, conform
 - Botao de Upload: vai adicionar vai pegar o arquivo selecionado e encaminha para o backend realizar o processamento do arquivo.
 
 o sistema incialmente começa sem a tabela destinada para os dados, quando adiconado o arquivo para carregamento essa tabela vai ser criada, e carregada com os dados, o sistema vai redirecionar para uma tela de loading e só é necessário aguardar finalizar o tempo de carregamento para os dados da base de exmplo completa está por volta dos 3.40 segundos.
-dados tecnicos da máquina onde o teste foi executado:
+
+Dados tecnicos da máquina onde o teste foi executado:
 ```
   Procesador: i5 10 geracao
   Memoria Ram: 16G
