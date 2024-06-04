@@ -46,7 +46,7 @@ Esse software foi desenvolvido visando o carregamento de um arquivo txt em forma
 ## Requisitos
 <ul>
   <li>Git</li>
-  <li>Deve possuir o <a href="https://docs.docker.com/engine/install/centos/">Docker</a> e também o <a href="https://docs.docker.com/compose/install/">Docker-compose</a> instlados em sua máquina.
+  <li>Deve possuir o <a href="https://docs.docker.com/engine/install/">Docker</a> e também o <a href="https://docs.docker.com/compose/install/">Docker-compose</a> instlados em sua máquina.
 </ul>
 
 ## Rodando a Aplicação
