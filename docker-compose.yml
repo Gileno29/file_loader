@@ -13,6 +13,7 @@ services:
 
   db:
     image: postgres:13
+    command: -c 'max_connections=5000'
     environment:
       POSTGRES_USER: uservendas
       POSTGRES_PASSWORD: passvendas
