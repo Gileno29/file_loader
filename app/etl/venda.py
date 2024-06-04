@@ -22,62 +22,72 @@ class Vendas(Base):
     cpf_valido= Column(Boolean, default=True)
     cnpj_valido= Column(Boolean, default=True)
     
-    
-    def make_list(self,lista_original):
+    @staticmethod
+    def make_list(origin_list):
         changed_list = []
-        for string in lista_original:
+        for string in origin_list:
             string=str(string).replace(',', '.')
             string = re.sub(r"\s+", ",", str(string))
             sublist = string.replace("['","").replace("']", "").split(',')
             changed_list.append(sublist)
         return changed_list
    
-
-    @staticmethod
-    def remove_empty_fields(data):
-        return str(re.sub(",,{1,}",",",(str(data).replace(',','.').replace(' ',',')))).split(',')
-
    
 
     @staticmethod
-    def cpfcnpj_valid_format(cpfcnpj, t='f'):
-        cpfcnpj = re.sub(r'\D', '', cpfcnpj)
+    def valid_cpf_cnpj(cpf_cnpj, t='f'):
+        cpf_cnpj = re.sub(r'\D', '', cpf_cnpj)
         if t=='f':
-            if cpfcnpj =='':
+            if cpf_cnpj =='':
                 return False, None
-            elif cpfcnpj == cpfcnpj[0] * len(cpfcnpj):
-                return False, formats_cpf(cpfcnpj)
-            elif len(cpfcnpj)==11:
-                return True, formats_cpf(cpfcnpj) 
-            else:
-                return False, formats_cpf(cpfcnpj)
+            if len(cpf_cnpj) != 11 or cpf_cnpj in [str(i) * 11 for i in range(10)]:
+                return False, formats_cpf(cpf_cnpj)
+            
+            for i in range(9, 11):
+                soma = sum(int(cpf_cnpj[num]) * (i+1-num) for num in range(0, i))
+                digito = (soma * 10 % 11) % 10
+                if digito != int(cpf_cnpj[i]):
+                    return False, formats_cpf(cpf_cnpj)
+            return True, formats_cpf(cpf_cnpj)
+                
+
         elif t=='j':
-            if cpfcnpj =='':
+            if cpf_cnpj =='':
                 return False, None
-            elif cpfcnpj == cpfcnpj[0] * len(cpfcnpj):
-                return False, formats_cnpj(cpfcnpj)
-            elif len(cpfcnpj) == 14:
-                return True, formats_cnpj(cpfcnpj)
-            else:
-                return False, formats_cnpj(cpfcnpj)
+            if len(cpf_cnpj) != 14 or cpf_cnpj in [str(i) * 14 for i in range(10)]:
+                return False, formats_cnpj(cpf_cnpj)
+            p1 = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+            p2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
+
+            def calc_digit(cnpj, p):
+                soma = sum(int(cnpj[i]) * p[i] for i in range(len(p)))
+                resto = soma % 11
+                return 0 if resto < 2 else 11 - resto
+
+            d1 = calc_digit(cpf_cnpj[:-2], p1)
+            d2 = calc_digit(cpf_cnpj[:-2] + str(d1), p2)
+            if cpf_cnpj[-2:]!=f"{d1}{d2}":
+                return False, formats_cnpj(cpf_cnpj)
+            
+            return True, formats_cnpj(cpf_cnpj)
         
+            
 
     def save_object(self,df, conection):
   
         for line in list(df):
                 new_entry=Vendas()
-                new_entry.cpf_valido,new_entry.cpf=self.cpfcnpj_valid_format(line[0])
+                new_entry.cpf_valido,new_entry.cpf=self.valid_cpf_cnpj(line[0])
                 new_entry.private=int(line[1])
                 new_entry.incompleto=int(line[2])
                 new_entry.data_ultima_compra=line[3] if line[3]!='NULL' else None
                 new_entry.ticket_medio=float(line[4]) if line[4]!='NULL' else 0.00
                 new_entry.ticket_medio_ultima_compra=float(line[5]) if line[5]!='NULL' else 0.00
-                new_entry.cnpj_valido, new_entry.loja_mais_frequente= self.cpfcnpj_valid_format(line[6], 'j')
-                new_entry.cnpj_valido, new_entry.loja_da_ultima_compra= self.cpfcnpj_valid_format(line[7], 'j')
+                new_entry.cnpj_valido, new_entry.loja_mais_frequente= self.valid_cpf_cnpj(line[6], 'j')
+                new_entry.cnpj_valido, new_entry.loja_da_ultima_compra= self.valid_cpf_cnpj(line[7], 'j')
 
                 conection.save(new_entry)
                 new_entry = Vendas()
-
 
                 
     def load(self, file_path, conection):  
