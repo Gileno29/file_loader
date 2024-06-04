@@ -10,7 +10,6 @@ import pandas as pd
 
 """
 Mock para a classe de conexão real. 
-
 Esta classe simula o comportamento da conexão real.
 registra as entradas passadas para o método `save`
 """
@@ -62,17 +61,17 @@ class TestVendas(unittest.TestCase):
             os.remove(temp_filename)
 
    
- 
-
-
     
     def test_valid_cpf_cnpj(self):
-        # CPF tests
-        #self.assertEqual(Vendas.valid_cpf_cnpj('12345678909', 'f'), (True, '123.456.789-09'))
+        """
+        Testa a função de validação de cpfs/cnpjs através de comparações de entrada e saida.
+        """
+        self.assertEqual(Vendas.valid_cpf_cnpj('12345678909', 'f'), (True, '123.456.789-09'))
         self.assertEqual(Vendas.valid_cpf_cnpj('11111111111', 'f'), (False, '111.111.111-11'))
         self.assertEqual(Vendas.valid_cpf_cnpj('', 'f'), (False, None))
         self.assertEqual(Vendas.valid_cpf_cnpj('52381815155', 'f'), (True, '523.818.151-55'))
-        # CNPJ tests
+    
+
         self.assertEqual(Vendas.valid_cpf_cnpj('23809070000190', 'j'), (True, '23.809.070/0001-90'))
         self.assertEqual(Vendas.valid_cpf_cnpj('', 'j'), (False, None))
         self.assertEqual(Vendas.valid_cpf_cnpj('1234567800019', 'j'), (False, '12.345.678/0001-9'))
@@ -103,5 +102,4 @@ class TestVendas(unittest.TestCase):
         mock_save_object.assert_called_once()
         os.remove(temp_filename)
            
-    ''' @patch('app.etl.venda.Vendas.save_object')
-    def test_load(self, mock_save_object):'''
+  

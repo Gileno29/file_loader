@@ -12,12 +12,12 @@ import os
 
 
 class TestViews(unittest.TestCase):
-
-    """
-    Testa a view de listagem de registros fazendo um mock do retorno dos dados
-    e testando se retornaram de forma correta
-    """
+    
     def test_list_records_success__view(self):
+        """
+        Testa a view de listagem de registros fazendo um mock do retorno dos dados
+        e testando se retornaram de forma correta
+        """
         with app.test_client() as client:
             with patch.object(Conection, 'list_all') as mock_list_all:
                 mock_list_all.return_value = [
@@ -35,10 +35,11 @@ class TestViews(unittest.TestCase):
                 self.assertEqual(data['0']['private'], 0)
 
     
-    """
-    Testa a view de listagem de registros quando não deve retornar nenhum valor
-    """          
+          
     def test_list_records_no_data_view(self):
+        """
+        Testa a view de listagem de registros quando não deve retornar nenhum valor
+        """   
         with app.test_client() as client:
 
             with patch.object(Conection, 'list_all') as mock_list_all:
@@ -53,35 +54,39 @@ class TestViews(unittest.TestCase):
                 self.assertEqual(data['message'], "No records found")
                 self.assertEqual(data['status_code'], 400)
    
-    """
-    Valida status de retorno da view index
-    """     
+       
     def test_index_view(self):
+        """
+        Valida status de retorno da view index
+        """  
         response = app.test_client().get('/')
         self.assertEqual(response.status_code, 200)
 
 
-    """
-    Valida retorno da view de loading 
-    """  
+
     def test_load_view(self):
+        """
+        Valida retorno da view de loading 
+        """  
         response = app.test_client().get('/loading')   
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.request.url, 'http://localhost/loading')
     
-    """
-    Valida retorno da view de status 
-    """  
+     
     def test_status_view(self):
+        """
+        Valida retorno da view de status 
+        """ 
         response = app.test_client().get('/status')   
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.request.url, 'http://localhost/status')
     
         
-    """
-    Valida retorno da view de upload de arquivo quando não é enviado arquivo 
-    """  
+   
     def test_upload_no_file(self):
+        """
+        Valida retorno da view de upload de arquivo quando não é enviado arquivo 
+        """  
         response = app.test_client().post('/upload')
         self.assertEqual(response.status_code, 400)
         self.assertIn(b'No file', response.data)
@@ -104,10 +109,11 @@ class TestViews(unittest.TestCase):
         mock_process_file.assert_called_once()
         os.remove(str(app.config['UPLOAD_FOLDER'])+'/test.txt')
 
-    """
-    Valida retorno da view de upload quando enviado um arquivo que não está dentro das extensões permitidas
-    """
+   
     def test_upload_disallowed_file(self):
+        """
+        Valida retorno da view de upload quando enviado um arquivo que não está dentro das extensões permitidas
+        """
         data = {
             'file': (BytesIO(b'my file contents'), 'test.exe')
         }
