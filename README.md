@@ -161,11 +161,11 @@ O projeto possui a seguinte estrutura:
 ```
 O core do aplicativo encontra-se no diretorio ``app`` nesse diretorio pode ser encontrado um outro chamado ``db`` que possui a classe de conexao com o database e funçõoes auxiliares para inserção e busca de dados.
 Dentro do  diretorio ``etl`` encontra-se a classe venda que é a entidade criada para ser mapeada para o banco de dados  em conjunto com os métodos que são responsaveis por realizar trativas no arquivo que vai ser lido e persistido.
-na raiz do diretorio ``app`` pode ser encontrado o arquivo ``main.py`` esse arquivo vai ser responsável por gerenciar as rotas que são chmadas pela aplicação. Por ultimo existe o diretorio upload, diretorio que vai ser responsável por salvar o arquivo encaminhado pela rota upload do sistema.
+na raiz do diretorio ``app`` pode ser encontrado o arquivo ``main.py`` esse arquivo vai ser responsável por gerenciar as rotas que são chamadas pela aplicação. Por último existe o diretorio de upload, diretorio que vai ser responsável por salvar o arquivo encaminhado pela rota ```/upload``` do sistema.
 
-no mesmo nível que o diretorio de ``app`` temos o diretorio de ``tests`` diretorio onde encontra-se os testes para validacao da classe de Vendas e das rotas da aplicação.
+no mesmo nível que o diretorio ``app`` temos o diretorio de ``tests`` diretorio onde encontra-se os testes para validação da classe de Vendas e das rotas da aplicação.
 
-ainda nesse nivel encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
+ainda nesse nível encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
 
 
 ## Infraestrutura
