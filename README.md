@@ -161,20 +161,21 @@ O projeto possui a seguinte estrutura:
 ```
 O core do aplicativo encontra-se no diretorio ``app`` nesse diretorio pode ser encontrado um outro chamado ``db`` que possui a classe de conexao com o database e funçõoes auxiliares para inserção e busca de dados.
 Dentro do  diretorio ``etl`` encontra-se a classe venda que é a entidade criada para ser mapeada para o banco de dados  em conjunto com os métodos que são responsaveis por realizar trativas no arquivo que vai ser lido e persistido.
-na raiz do diretorio ``app`` pode ser encontrado o arquivo ``main.py`` esse arquivo vai ser responsável por gerenciar as rotas que são chamadas pela aplicação. Por último existe o diretorio de upload, diretorio que vai ser responsável por salvar o arquivo encaminhado pela rota ```/upload``` do sistema.
+na raiz do diretorio ``app`` pode ser encontrado o arquivo ``main.py`` esse arquivo vai ser responsável por gerenciar as rotas que são chamadas pela aplicação. Por último existe o diretorio de upload, diretorio que vai ser responsável por salvar o arquivo encaminhado pela rota ``/upload`` do sistema.
 
-no mesmo nível que o diretorio ``app`` temos o diretorio de ``tests`` diretorio onde encontra-se os testes para validação da classe de Vendas e das rotas da aplicação.
+no mesmo nível que o diretorio ``app`` temos o diretorio de ``tests`` diretorio onde encontram-se os testes para validação da classe de Vendas e das rotas da aplicação.
 
-ainda nesse nível encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
+Ainda nesse nível encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
 
 
 ## Infraestrutura
 A infraestrutura para deploy consiste em 3 partes:
-  - Aplicao: se trata do sistema em si que é conteinarizado dentro de um container do python
-  - Banco de dados: container a parte com o database do sistema
-  - Proxy Reverso: container com o serviço do NGIX que vai ser responsavel por receber as requisições e encaminhar ao serviço
 
-  Digrama da Estrutura:
+- Aplicação: se trata do sistema em si, que é conteinerizado dentro de um container do Python
+- Banco de dados: container à parte com o database do sistema
+- Proxy Reverso: container com o serviço do NGINX que vai ser responsável por receber as requisições e encaminhar ao serviço
+
+Diagrama da Estrutura::
   
   <div yle="display: flex">
     <img src=https://github.com/Gileno29/file_loader/blob/main/doc/img/diagrama_estrutural.png/>
@@ -199,15 +200,17 @@ A infraestrutura para deploy consiste em 3 partes:
 
   CMD ["gunicorn","--timeout" ,"800", "-w", "4", "-b", "0.0.0.0:5000", "wsgi:app"]
 
-```
-O docker file consiste em uma imagem criada a partir da imagem ```python:3.9-slim`` ele vai:
- - criar o workdir da aplicacao
- - enviar o arquivo de requirements e instalar os mesmos
- - Copiar os arquivos da aplicação e enviar para o container
- - expor a porta da aplicação 
- - Por ultimo vai chamar o gunicorn para subir o servico.
 
-*OBS*: caso seja alterado algo do código da aplicação da forma que está esse container precisar ser buildado novamente, execute:
+```
+O Dockerfile consiste em uma imagem criada a partir da imagem python:3.9-slim. Ele vai:
+
+- criar o workdir da aplicação
+- enviar o arquivo de requirements e instalar os mesmos
+- copiar os arquivos da aplicação e enviar para o container
+- expor a porta da aplicação
+- Por último, vai chamar o Gunicorn para subir o serviço.
+
+*OBS*: caso seja alterado algo do código da aplicação, da forma que está, esse container precisará ser buildado novamente. Execute:
    ``` docker-compose down -v```
    ```docker-compose up --build```
 
