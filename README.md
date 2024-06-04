@@ -200,14 +200,14 @@ A infraestrutura para deploy consiste em 3 partes:
   CMD ["gunicorn","--timeout" ,"800", "-w", "4", "-b", "0.0.0.0:5000", "wsgi:app"]
 
 ```
-O docker file consiste em uma imagem criada a partir da imagem python:3.9-slim ele vai:
+O docker file consiste em uma imagem criada a partir da imagem ```python:3.9-slim`` ele vai:
  - criar o workdir da aplicacao
- - enviar o arquivo de requirements e instalar eles
+ - enviar o arquivo de requirements e instalar os mesmos
  - Copiar os arquivos da aplicação e enviar para o container
  - expor a porta da aplicação 
  - Por ultimo vai chamar o gunicorn para subir o servico.
 
-*OBS*: caso seja altrado algo do código da aplicação da forma que está esse container precisar ser buildado novamente, execute:
+*OBS*: caso seja alterado algo do código da aplicação da forma que está esse container precisar ser buildado novamente, execute:
    ``` docker-compose down -v```
    ```docker-compose up --build```
 
