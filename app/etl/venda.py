@@ -44,9 +44,9 @@ class Vendas(Base):
                 return False, formats_cpf(cpf_cnpj)
             
             for i in range(9, 11):
-                soma = sum(int(cpf_cnpj[num]) * (i+1-num) for num in range(0, i))
-                digito = (soma * 10 % 11) % 10
-                if digito != int(cpf_cnpj[i]):
+                s = sum(int(cpf_cnpj[num]) * (i+1-num) for num in range(0, i))
+                dg = (s * 10 % 11) % 10
+                if dg != int(cpf_cnpj[i]):
                     return False, formats_cpf(cpf_cnpj)
             return True, formats_cpf(cpf_cnpj)
                 
@@ -60,9 +60,9 @@ class Vendas(Base):
             p2 = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]
 
             def calc_digit(cnpj, p):
-                soma = sum(int(cnpj[i]) * p[i] for i in range(len(p)))
-                resto = soma % 11
-                return 0 if resto < 2 else 11 - resto
+                s = sum(int(cnpj[i]) * p[i] for i in range(len(p)))
+                r = s % 11
+                return 0 if r < 2 else 11 - r
 
             d1 = calc_digit(cpf_cnpj[:-2], p1)
             d2 = calc_digit(cpf_cnpj[:-2] + str(d1), p2)
