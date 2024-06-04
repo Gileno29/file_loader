@@ -3,7 +3,7 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - development  # Aciona o workflow para qualquer push em qualquer branch
+      - main  # Aciona o workflow para qualquer push em qualquer branch
   pull_request:
     branches:
       - main  # Aciona o workflow para PRs que visam a branch main
@@ -29,28 +29,4 @@ jobs:
       - name: Run tests
         run: |
           python -m unittest discover -s tests  # Substitua 'tests' pelo diretório dos seus testes
-
-  merge:
-    needs: test  # Esse job só será executado se o job 'test' for bem-sucedido
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'  # Apenas executa no evento de push
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          ref: main  # Certifique-se de que a branch main está sincronizada
-
-      - name: Configure Git
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-
-      - name: Merge to main
-        run: |
-          git checkout main
-          git merge ${{ github.ref }}  # Mescla a branch atual com a main
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Usando o token do GitHub para autenticação
 
