@@ -74,6 +74,7 @@ Seguindo a ordem corretamente o sistema deve iniciar e está acessivel no endere
 O sistema consiste em uma interface para inserção de uma base em .txt, conforme disponibilizada para análise, em um banco de dados relacional PostgreSQL. Essa interface posssui o campo de upload que deve receber o arquivo de texto, com cabeçalho, esse arquivo vai ser processado e seus registros attribuidos ao database.
 
 *OBS*: O arquivo não deve ser alterado ou ter seu cabeçalho removido o script considera a primeira linha como sendo o cabecalho
+*OBS:* O arquivo está no projeto com o nome Base.txt
 
 ### interface sistema
 
