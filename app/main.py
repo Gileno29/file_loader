@@ -12,12 +12,12 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 ALLOWED_EXTENSIONS = {'txt'}
 status={}
+status['processing'] = True
+status['done'] = False
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def process_file(file_path, conection):
-    status['processing'] = True
-    status['done'] = False
     new_venda = venda.Venda()
     conection.create(new_venda)
     new_venda.load(file_path, conection)
