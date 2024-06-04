@@ -62,11 +62,11 @@ cd file_loader
 
 docker-compose up 
 
-  ou 
+  OU 
 
 docker-compose up -d #rodar em backgroud
 ```
-Obs: Verifique se já possui serviços funcionando em sua máquina nas portas da aplicação, caso haja desativeos
+Obs: Verifique se já possui serviços funcionando em sua máquina nas portas da aplicação, caso haja desative.
 
 Seguindo a ordem corretamente o sistema deve iniciar e está acessivel no endereço: http://localhost/
 
@@ -98,7 +98,16 @@ Dados tecnicos da máquina onde o teste foi executado:
 
 ```
 
-Após o carregamento é possivel verificar os registros no banco de dados.
+
+Após isso é possivel visualizar os dados em formato json, através do botão de listar registros.
+
+Busca dos registros:
+
+<img src="https://github.com/Gileno29/file_loader/blob/main/doc/img/registros.png"/>
+
+
+
+Também é possivel acessar o banco de dados da aplicação para verificar os registros inseridos.
 
 Execute:
 
@@ -114,19 +123,10 @@ Dentro do container log no database:
   psql -U uservendas -d venda
 ```
 Verifique os registros:
+
 ```sql
   select * from vendas;
 ```
-
-Após isso é possivel visualizar os dados em formato json, através do botão de listar registros.
-
-Busca dos registros:
-
-<img src="https://github.com/Gileno29/file_loader/blob/main/doc/img/registros.png"/>
-
-
-Após
-
 
 
 ## Estrutura do projeto
@@ -135,29 +135,29 @@ O projeto possui a seguinte estrutura:
 ```sh
   ├── app
   │   ├── db
-  │   │   ├── conection.py
+  │   │   ├── conection.py                              #class de conexao com database
   │   │   └── __init__.py
   │   ├── etl
   │   │   ├── __init__.py
-  │   │   └── venda.py
+  │   │   └── venda.py                                  #classe responsavel por mapear a entidade e realizar o carregamento dos dados
   │   ├── __init__.py
   │   ├── main.py
-  │   ├── templates
-  │   │   ├── index.html
-  │   │   └── loading.html
+  │   ├── templates                                     #paginas do sistema
+  │   │   ├── index.html 
+  │   │   └── loading.html 
   │   └── uploads
   │
-  ├── docker-compose.yml
+  ├── docker-compose.yml 
   ├── dockerfile
   ├── nginx.conf
   ├── requirements.txt
-  ├── tests
+  ├── tests                                              #diretorio de testes
   │   ├── test_vendas.py
   │   └── test_views.py
   └── wsgi.py
 ```
-o core do aplicativo encontra-se no diretorio ``app`` nesse diretorio pode ser encontrado um diretorio chamado ``db`` que possui a classe de conexao com o database e funcoes auxiliares para inserção e busca de dados.
-Dentro do  diretorio ``etl`` encontra-se a classe venda que é a entidade criada para ser mapeada para o banco de dados  em conjunto com os metodos que são responsaveis por realizar trativas no arquivo que vai ser lido e persistido no banco de dados.
+O core do aplicativo encontra-se no diretorio ``app`` nesse diretorio pode ser encontrado um diretorio chamado ``db`` que possui a classe de conexao com o database e funcoes auxiliares para inserção e busca de dados.
+Dentro do  diretorio ``etl`` encontra-se a classe venda que é a entidade criada para ser mapeada para o banco de dados  em conjunto com os metodos que são responsaveis por realizar trativas no arquivo que vai ser lido e persistido.
 na raiz do diretorio ``app`` pode ser encontrado o arquivo ``main.py`` esse arquivo vai ser responsavel por gerenciar as rotas que são chmadas pela aplicação. Por ultimo existe o diretorio upload, dmiretorio que vai ser responsavel por salvar o arquivo encaminhado pelo upload do sistema.
 
 no mesmo nível que o diretorio de ``app`` temos o diretorio de ``tests`` diretorio onde encontra-se os testes para validacao da classe de Vendas e das rotas da aplicação.
