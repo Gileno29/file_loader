@@ -15,7 +15,7 @@ Esse projeto tem como objetivo especifico realizar o caregamento de uma base de 
 ## Sobre
 
 Esse software foi desenvolvido visando o carregamento de um arquivo txt em formato especifico para uma base de dados PostgreSQL. Foi utilizado o Flamework flask para criação das rotas da aplicação e o SQLAlchemy para manipulação do database, a aplicação está sendo feito deploy docker-compose subindo 3 containers o da aplicação o do banco de dados e um ultimo do NGINX para fazer um proxy reverso para acesso do sistema.
-## Instalação
+## Rodando a Aplicação
 
 <div id='requerimentos'/>
 
@@ -44,6 +44,7 @@ docker-compose up
 
 docker-compose up -d #rodar em backgroud
 ```
+Obs: Verifique se já possui serviços funcionando em sua máquina nas portas da aplicação, caso haja desativeos
 
 Seguindo a ordem corretamente o sistema deve iniciar e está acessivel no endereço: http://localhost/
 
@@ -62,7 +63,9 @@ O sistema consiste em uma interface para inserção de uma base em .txt conforme
 
 - Botao de Upload: vai adicionar vai pegar o arquivo selecionado e encaminha para o backend realizar o processamento do arquivo.
 
-o sistema incialmente começa sem a tabela destinada para os dados, quando adiconar o arquivo para carregamento essa tabela vai ser criada, e carregada com os dados, o sistema vai redirecionar para uma tela de loading e só preciso aguardar finalizar.
+o sistema incialmente começa sem a tabela destinada para os dados, quando adiconado o arquivo para carregamento essa tabela vai ser criada, e carregada com os dados, o sistema vai redirecionar para uma tela de loading e só é necessário aguardar finalizar o tempo de carregamento para os dados da base de exmplo completa está por volta dos 3.30 segundos.
+
+Após isso é possivel visualizar os dados em formato json, através do botão de listar registros.
 
 
 
@@ -232,7 +235,7 @@ Foram implementados tests para validacao de funcionalidades do sistema, eles se 
   ├── test_vendas.py
   └── test_views.py
 ```
-Para execução dos testes do projeto execute: 
-```python ...```
+Para execução dos testes do projeto vá até a raiz do projeto e execute: 
+```python3 -m unittest discover -s tests```
 
-A arquivo test_vendas.py possui os testes da classe Vendas do modulo etl, Já o arquivo test_views.py executa testes nas rotas do sistema que se encontram no arquivo main.py 
+A arquivo test_vendas.py possui os testes da classe Vendas do modulo etl, Já o arquivo test_views.py executa testes nas rotas do sistema que se encontram no arquivo main.py.
