@@ -86,7 +86,7 @@ def list_records():
             records[row]={'id':result[row][0],
                             'cpf': result[row][1],
                             'private': result[row][2],
-                            'incompreto': result[row][3],
+                            'incompleto': result[row][3],
                             'data_ultima_compra': result[row][4],
                             'ticke_medio': result[row][5],
                             'ticket_medio_ultima_compra': result[row][6],
