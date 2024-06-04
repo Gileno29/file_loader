@@ -87,12 +87,13 @@ class TestViews(unittest.TestCase):
         self.assertIn(b'No file', response.data)
 
 
-    """
-    Valida retorno da view de upload quando enviado um arquivo, criar um arquivo
-    temporario que deve ser removido ao final da execução 
-    """
+   
     @patch('app.main.process_file')
     def test_upload_allowed_file(self, mock_process_file):
+        """
+        Valida retorno da view de upload quando enviado um arquivo, criar um arquivo
+        temporario que deve ser removido ao final da execução 
+        """
         data = {
             'file': (BytesIO(b'my file contents'), 'test.txt')
         }
