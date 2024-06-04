@@ -42,6 +42,7 @@ Esse software foi desenvolvido visando o carregamento de um arquivo txt em forma
 
 
 <div id='requisitos'/>
+ 
 ## Requisitos
 <ul>
   <li>Git</li>
