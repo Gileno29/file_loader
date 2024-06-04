@@ -16,7 +16,9 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def process_file(file_path, conection):
-    new_venda = venda.Vendas()
+    status['processing'] = True
+    status['done'] = False
+    new_venda = venda.Venda()
     conection.create(new_venda)
     new_venda.load(file_path, conection)
     status['processing'] = False
@@ -32,8 +34,7 @@ def upload():
     if request.method == 'POST':
         if 'file' not in request.files:
             return 'No file ', 400
-    status['processing'] = True
-    status['done'] = False
+    
     file = request.files['file']
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
@@ -66,14 +67,14 @@ def get_status():
 @app.route('/reset_db')
 def reset_db():
     new_conection=conection.Conection()
-    new_venda=venda.Vendas()
+    new_venda=venda.Venda()
     new_conection.recreate_table(new_venda) 
     return redirect(url_for('index'), code=302), 302
 
 @app.route('/list_records', methods=['GET'])
 def list_records():
     new_conection=conection.Conection()
-    new_venda=venda.Vendas()
+    new_venda=venda.Venda()
     try:
         result=new_conection.list_all(new_venda)
     except:

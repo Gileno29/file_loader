@@ -8,7 +8,7 @@ import threading
 Base = declarative_base()
 formats_cpf= lambda cpf : f"{cpf[:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:]}" 
 formats_cnpj = lambda cnpj : f"{cnpj[:2]}.{cnpj[2:5]}.{cnpj[5:8]}/{cnpj[8:12]}-{cnpj[12:]}"
-class Vendas(Base):
+class Venda(Base):
     __tablename__ = 'vendas'
     id = Column(Integer, primary_key=True)
     cpf= Column(String)
@@ -76,7 +76,7 @@ class Vendas(Base):
     def save_object(self,df, conection):
   
         for line in list(df):
-                new_entry=Vendas()
+                new_entry=Venda()
                 new_entry.cpf_valido,new_entry.cpf=self.valid_cpf_cnpj(line[0])
                 new_entry.private=int(line[1])
                 new_entry.incompleto=int(line[2])
@@ -87,7 +87,6 @@ class Vendas(Base):
                 new_entry.cnpj_valido, new_entry.loja_da_ultima_compra= self.valid_cpf_cnpj(line[7], 'j')
 
                 conection.save(new_entry)
-                new_entry = Vendas()
 
                 
     def load(self, file_path, conection):  

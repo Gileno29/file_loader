@@ -3,7 +3,7 @@ import json
 from unittest.mock import Mock, patch, MagicMock
 from app.main import app,   allowed_file, process_file, status, conection
 from app.db.conection import Conection  
-from app.etl.venda import Vendas 
+from app.etl.venda import Venda 
 from flask import Flask, render_template, redirect, url_for
 from io import BytesIO
 import os
@@ -104,8 +104,6 @@ class TestViews(unittest.TestCase):
         }
         response = app.test_client().post('/upload', data=data, content_type='multipart/form-data')
         self.assertEqual(response.status_code, 302)
-        self.assertTrue(status['processing'])
-        self.assertFalse(status['done'])
         mock_process_file.assert_called_once()
         os.remove(str(app.config['UPLOAD_FOLDER'])+'/test.txt')
 

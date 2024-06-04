@@ -1,5 +1,5 @@
 import unittest
-from app.etl.venda import Vendas
+from app.etl.venda import Venda
 from unittest.mock import Mock, patch
 import unittest
 import tempfile
@@ -23,13 +23,13 @@ class MockConnection(Mock):
     def save(self, new_entry):
         self.saved_entries.append(new_entry)
 
-class TestVendas(unittest.TestCase):
+class TestVenda(unittest.TestCase):
 
     def test_make_list_empty(self):
         """ Testa se a função funciona com uma lista vazia. """
         origin_list = []
         expected_list = []
-        self.assertEqual(Vendas.make_list(origin_list),expected_list)
+        self.assertEqual(Venda.make_list(origin_list),expected_list)
     
     def test_make_list_with_file(self):
         """
@@ -54,7 +54,7 @@ class TestVendas(unittest.TestCase):
             expected_first_element =['12345678901','1','0','2023-10-04','100.50','50.25','12.345.678/0001-9','12.345.678/0001-9']
             expected_second_element =['98765432109','0', '1', '2023-11-15', '250.00', '125.00', '12.345.678/0001-95', '12.345.678/0001-95']
             expected_third_element=['98765432108','0','1','2023-11-18','250.00','125.00','12.345.678/0001-95', '00.000.000/0000-00']
-            origin_list=Vendas.make_list(bloco.values.tolist())
+            origin_list=Venda.make_list(bloco.values.tolist())
             self.assertEqual(origin_list[0], expected_first_element)
             self.assertEqual(origin_list[1], expected_second_element)
             self.assertEqual(origin_list[2], expected_third_element)
@@ -66,19 +66,19 @@ class TestVendas(unittest.TestCase):
         """
         Testa a função de validação de cpfs/cnpjs através de comparações de entrada e saida.
         """
-        self.assertEqual(Vendas.valid_cpf_cnpj('12345678909', 'f'), (True, '123.456.789-09'))
-        self.assertEqual(Vendas.valid_cpf_cnpj('11111111111', 'f'), (False, '111.111.111-11'))
-        self.assertEqual(Vendas.valid_cpf_cnpj('', 'f'), (False, None))
-        self.assertEqual(Vendas.valid_cpf_cnpj('52381815155', 'f'), (True, '523.818.151-55'))
+        self.assertEqual(Venda.valid_cpf_cnpj('12345678909', 'f'), (True, '123.456.789-09'))
+        self.assertEqual(Venda.valid_cpf_cnpj('11111111111', 'f'), (False, '111.111.111-11'))
+        self.assertEqual(Venda.valid_cpf_cnpj('', 'f'), (False, None))
+        self.assertEqual(Venda.valid_cpf_cnpj('52381815155', 'f'), (True, '523.818.151-55'))
     
 
-        self.assertEqual(Vendas.valid_cpf_cnpj('23809070000190', 'j'), (True, '23.809.070/0001-90'))
-        self.assertEqual(Vendas.valid_cpf_cnpj('', 'j'), (False, None))
-        self.assertEqual(Vendas.valid_cpf_cnpj('1234567800019', 'j'), (False, '12.345.678/0001-9'))
+        self.assertEqual(Venda.valid_cpf_cnpj('23809070000190', 'j'), (True, '23.809.070/0001-90'))
+        self.assertEqual(Venda.valid_cpf_cnpj('', 'j'), (False, None))
+        self.assertEqual(Venda.valid_cpf_cnpj('1234567800019', 'j'), (False, '12.345.678/0001-9'))
 
 
       
-    @patch('app.etl.venda.Vendas.save_object')
+    @patch('app.etl.venda.Venda.save_object')
     def test_load(self, mock_save_object):
         """
         Testa a função load escrevendo dados de exemplo em um arquivo temporário,
@@ -97,7 +97,7 @@ class TestVendas(unittest.TestCase):
                 f.write("98765432108    0   1    2023-11-18    250.00   125.00       12.345.678/0001-95    00.000.000/0000-00\n")
 
         mock_connection = MockConnection()
-        new_venda=Vendas()
+        new_venda=Venda()
         new_venda.load(temp_filename, mock_connection)
         mock_save_object.assert_called_once()
         os.remove(temp_filename)
