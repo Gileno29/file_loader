@@ -35,6 +35,7 @@ Esse software foi desenvolvido visando o carregamento de um arquivo txt em forma
  <img align="center" alt="SQLAlchemy" height="50" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlalchemy/sqlalchemy-original.svg" />
  <img  align="center" alt="Javascript" height="50" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
  <img align="center" alt="Pandas" height="50" width="100"src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/pandas/pandas-original-wordmark.svg" />
+ <img aling="center" alt="Actions" height="50" width="100" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/githubactions/githubactions-original.svg">
           
           
           
@@ -70,7 +71,9 @@ Obs: Verifique se já possui serviços funcionando em sua máquina nas portas da
 Seguindo a ordem corretamente o sistema deve iniciar e está acessivel no endereço: http://localhost/
 
 ## Utilizacao
-O sistema consiste em uma interface para inserção de uma base em .txt conforme disponibilizada para análise. Essa interface posssui o campo de upload que deve receber o arquivo de texto, com cabecalho, esse arquivo vai ser processado e seus registros attribuidos ao database.
+O sistema consiste em uma interface para inserção de uma base em .txt, conforme disponibilizada para análise, em um banco de dados relacional PostgreSQL. Essa interface posssui o campo de upload que deve receber o arquivo de texto, com cabeçalho, esse arquivo vai ser processado e seus registros attribuidos ao database.
+
+*OBS*: O arquivo não deve ser alterado ou ter seu cabeçalho removido o script considera a primeira linha como sendo o cabecalho
 
 ### interface sistema
 
@@ -87,6 +90,7 @@ O sistema consiste em uma interface para inserção de uma base em .txt conforme
 o sistema incialmente começa sem a tabela destinada para os dados, quando adiconado o arquivo para carregamento essa tabela vai ser criada, e carregada com os dados, o sistema vai redirecionar para uma tela de loading e só é necessário aguardar finalizar o tempo de carregamento para os dados da base de exmplo completa está por volta dos 3.30 segundos.
 
 Após isso é possivel visualizar os dados em formato json, através do botão de listar registros.
+
 
 
 
@@ -113,9 +117,6 @@ O projeto possui a seguinte estrutura:
   ├── nginx.conf
   ├── requirements.txt
   ├── tests
-  │   ├── __pycache__
-  │   │   ├── test_vendas.cpython-310.pyc
-  │   │   └── test_views.cpython-310.pyc
   │   ├── test_vendas.py
   │   └── test_views.py
   └── wsgi.py
@@ -136,7 +137,9 @@ A infraestrutura para deploy consiste em 3 partes:
 
   Digrama da Estrutura:
   
-  <img src=https://github.com/Gileno29/file_loader/blob/main/doc/img/diagrama_estrutural.png/>
+  <div yle="display: flex">
+    <img src=https://github.com/Gileno29/file_loader/blob/main/doc/img/diagrama_estrutural.png/>
+  </div>
 
 ### Docker file
 
@@ -187,6 +190,7 @@ OBS: caso seja altrado algo do código da aplicação da forma que está esse co
 
     db:
       image: postgres:13
+      command: -c 'max_connections=5000'
       environment:
         POSTGRES_USER: uservendas
         POSTGRES_PASSWORD: passvendas
@@ -212,6 +216,7 @@ OBS: caso seja altrado algo do código da aplicação da forma que está esse co
   networks:
     webnet:
     database:
+
   ```
 O docker-compose vai definir 3 serviços em sua estrutura, web(aplicacao) db(database) e nginx(proxy).
 Os serviço web está tanto na rede do database quando na do proxy devido a necessidade de comunicação com ambos os serviços, enquando o proxy e o database encontran-se em suas respectivas redes apenas.
