@@ -93,7 +93,7 @@ Após isso é possivel visualizar os dados em formato json, através do botão d
 
 Busca dos registros:
 
-
+<img src="https://github.com/Gileno29/file_loader/blob/main/doc/img/registros.png"/>
 
 
 
@@ -131,10 +131,6 @@ na raiz do diretorio ``app`` pode ser encontrado o arquivo ``main.py`` esse arqu
 no mesmo nível que o diretorio de ``app`` temos o diretorio de ``tests`` diretorio onde encontra-se os testes para validacao da classe de Vendas e das rotas da aplicação.
 
 ainda nesse nivel encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
-
-Retorno da consulta ao banco:
-<img src="https://github.com/Gileno29/file_loader/blob/main/doc/img/registros.png"/>
-
 
 
 ## Infraestrutura
