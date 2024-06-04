@@ -37,7 +37,7 @@
     <div class="loader"></div>
     <script>
         function checkStatus() {
-            fetch('/status')
+            fetch('/status random=' + Math.random())
                 .then(response => response.json())
                 .then(data => {
                     if (data.done) {
