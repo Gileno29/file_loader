@@ -72,7 +72,7 @@ docker-compose up -d #rodar em backgroud
 
 Seguindo a ordem corretamente o sistema deve iniciar e está acessivel no endereço: http://localhost/
 
-## Utilizacao
+## Utilizaçao
 O sistema consiste em uma interface para inserção de uma base em .txt, conforme disponibilizada para análise, em um banco de dados relacional PostgreSQL. Essa interface posssui o campo de upload que deve receber o arquivo de texto, com cabeçalho, esse arquivo vai ser processado e seus registros atribuidos ao database.
 
 
