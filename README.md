@@ -8,10 +8,10 @@ Esse projeto tem como objetivo realizar o caregamento de uma base de dados em tx
 - [Tecnologias](#tecnologias)
 - [Requisitos](#requisitos)
 - [Rodando a Aplicação](#uso)
-- [Estrutura do Projeto](#testes)
-- [Infraestrutura](#contribuindo)
-- [Licença](#licença)
-- [Contato](#contato)
+- [Estrutura Banco dados](#tabela)
+- [Estrutura do Projeto](#estrutura)
+- [Infraestrutura](#infraestrutura)
+
 
 
 <div id='sobre'/>
@@ -49,6 +49,8 @@ Esse software foi desenvolvido visando o carregamento de um arquivo txt em forma
   <li>Git</li>
   <li>Deve possuir o <a href="https://docs.docker.com/engine/install/">Docker</a> e também o <a href="https://docs.docker.com/compose/install/">Docker-compose</a> instlados em sua máquina.
 </ul>
+
+<div id='uso'/>
 
 ## Rodando a Aplicação
 Instruções para iniciar a aplicação.
@@ -131,6 +133,49 @@ Verifique os registros:
   select * from vendas;
 ```
 
+<div id='tabela'/>
+A tabela do banco de dados foi montada seguindo as especificações dos campos do arquivo da base, sendo adicionado dois campos extras para validações, o campo de *cpf_valido* e *cnpj_valido* para que pudessem ser utilizados em filtros para consumo outros serviços, além do ID criado automaticamente para referenciar cada registro.
+
+```bash
+                                              Table "public.vendas"
+            Column           |       Type        | Collation | Nullable |              Default
+  ----------------------------+-------------------+-----------+----------+------------------------------------
+  id                         | integer           |           | not null | nextval('vendas_id_seq'::regclass)
+  cpf                        | character varying |           |          |
+  private                    | integer           |           |          |
+  incompleto                 | integer           |           |          |
+  data_ultima_compra         | date              |           |          |
+  ticket_medio               | numeric(10,2)     |           |          |
+  ticket_medio_ultima_compra | numeric(10,2)     |           |          |
+  loja_mais_frequente        | character varying |           |          |
+  loja_da_ultima_compra      | character varying |           |          |
+  cpf_valido                 | boolean           |           |          |
+  cnpj_valido                | boolean           |           |          |
+  Indexes:
+      "vendas_pkey" PRIMARY KEY, btree (id)
+```
+Classe Venda:
+
+```py
+  class Venda(Base):
+      __tablename__ = 'vendas'
+      id = Column(Integer, primary_key=True)
+      cpf= Column(String)
+      private = Column(Integer)
+      incompleto = Column(Integer)
+      data_ultima_compra= Column(Date, nullable=True)
+      ticket_medio = Column(DECIMAL(10, 2))
+      ticket_medio_ultima_compra= Column(DECIMAL(10, 2))
+      loja_mais_frequente= Column(String)
+      loja_da_ultima_compra= Column(String)
+      cpf_valido= Column(Boolean, default=True)
+      cnpj_valido= Column(Boolean, default=True)
+```
+
+Fazendo desta forma é possivel fazer o mapeamento para outros arquivos caso seja necessário carregar outras bases, bastaria apenas criar as classes equivalentes para mapeamento dos dados.
+
+
+<div id='estrutura'/>
 
 ## Estrutura do projeto
 O projeto possui a seguinte estrutura:
@@ -167,6 +212,7 @@ no mesmo nível que o diretorio ``app`` temos o diretorio de ``tests`` diretorio
 
 Ainda nesse nível encontra-se os arquivos para deploy e configuração da infraestrutura da aplicação.
 
+<div id='infraestrutura'/>
 
 ## Infraestrutura
 A infraestrutura para deploy consiste em 3 partes:
