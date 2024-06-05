@@ -137,6 +137,9 @@ Verifique os registros:
 ```
 
 <div id='tabela'/>
+
+## Estrutura do Database
+
 A tabela do banco de dados foi montada seguindo as especificações dos campos do arquivo da base, sendo adicionado dois campos extras para validações, o campo de *cpf_valido* e *cnpj_valido* para que pudessem ser utilizados em filtros para consumo outros serviços, além do ID criado automaticamente para referenciar cada registro.
 
 ```bash
