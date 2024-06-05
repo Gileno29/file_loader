@@ -92,16 +92,17 @@ O sistema consiste em uma interface para inserção de uma base em .txt, conform
 
 - Opção de Upload: vai encaminhar o arquivo carregado para o backend realizar o processamento.
 
-o sistema incialmente começa sem a tabela destinada para os dados, quando enviado o arquivo para carregamento essa tabela vai ser criada e carregada com os dados, o sistema vai redirecionar para uma tela de loading é necessário aguardar finalizar.
+o sistema incialmente começa sem a tabela destinada para os dados, quando enviado o arquivo para carregamento essa tabela vai ser criada e carregada com os dados, o sistema vai redirecionar para uma tela de loading, é necessário aguardar finalizar.
 
-O tempo de carregamento para os dados da base de exmplo completa está por volta dos 3.40 segundos.
+O tempo de carregamento para os dados da base de exemplo completa está por volta dos 3.40 segundos.
 
 Dados tecnicos da máquina onde o teste foi executado:
 ```
-  Procesador: i5 10 geracao
+  Procesador: i5 10° geracao
   Memoria Ram: 16G
   Sitema Operacional: Ubuntu 22.04 (WSL2)
   Tempo de carregamento: 3.43s
+  Tipo de Disco: ssd
 
 ```
 
